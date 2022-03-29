@@ -1,0 +1,31 @@
+<section class="reviews">
+    {% if section.settings.title_txt != blank %}
+    <div class="title_div mb-5 text-center">
+        {% if section.settings.subtitle != blank %}
+            <h5>{{ section.settings.subtitle }}</h5>
+        {% endif %}
+        <h3>{{ section.settings.title_txt }}</h3>
+    </div>
+    {% endif %}
+    <div class="container">
+        <div id="stamped-reviews-widget" data-widget-type="wall-photos" data-with-photos="true"></div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Reviews",
+	"class": "section_start",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title_txt",
+            "label": "Title"
+        },
+        {
+            "type": "textarea",
+            "id": "subtitle",
+            "label": "Subtitle"
+        }
+	]
+  }
+{% endschema %}

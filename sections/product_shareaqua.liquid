@@ -1,0 +1,287 @@
+{% assign current_variant = product.selected_variant %}
+<section class="product-detail-section pt-0">
+  {% if product.metafields.my_fields.bg_image != blank %}
+  <div class="back_image_div d-md-block d-none">
+      <div class="product-slider">
+        
+        {% for media in product.media %}
+          {% case media.media_type %}
+              {% when 'image' %}
+                <img src="{{ media | img_url: 'master' }}" alt="Background Image {{ product.title }}">
+              {% when 'external_video' %}
+                {{ media | external_video_tag }}
+          {% endcase %}    
+        {% endfor %}
+      </div>
+  </div>
+  <div class="back_image_div d-md-none d-block">
+    <img class="lazyload" data-src="{{ product.metafields.my_fields.bg_image | img_url: 'original' }}" alt="Background Image {{ product.title }}">
+  </div>
+  {% endif %}
+  <div class="container">
+        <div class="row">
+          <div class="col-lg-7 position-relative">
+            <div class="slider_main_div">
+              <div class="product-slider mb-0  d-md-none">
+                {% for media in product.media %}
+                {% case media.media_type %}
+                    {% when 'image' %}
+                    <div class="img_box_slide">
+                      <img class="lazyload" data-src="{{ media | img_url: 'master' }}" alt="{{ product.title }}">
+                    </div>
+                    {% when 'external_video' %}
+                    <div class="img_box_slide">
+                      {{ media | external_video_url: loop: "1", muted: "1", autoplay: "1" | external_video_tag }}
+                    </div>
+                {% endcase %}    
+                {% endfor %}
+              </div>
+            </div>
+            <div class="product-nav">
+              {% if product.media.size > 1 %}
+                <div class="pro-nav-ul list-unstyled mb-0">
+                  {% for media in product.media %}
+                  {% case media.media_type %}
+                    {% when 'image' %}
+                    <div class="slide_nav">
+                      <div class="img_div">
+                          <img class="lazyload" data-src="{{ media | img_url: 'master' }}" alt="{{ product.title }}">
+                      </div>
+                    </div>
+                    {% when 'external_video' %}
+                    <div class="slide_nav">
+                      <div class="img_div">
+                        <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/263123_1.png?v=1630987261" alt="{{ product.title }}">
+                      </div>
+                    </div>
+                  {% endcase %}    
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-lg-5 product-detail-content">
+            <div class="product-detail-content-inner pt-2">
+              <div class="product-head pb-3">
+                <h4 class="text-center mb-3">{{ product.metafields.my_fields.testimonial_title }}</h4>
+                <div class="review_box d-flex justify-content-between align-items-center">
+                  <span class="review-pro text-left">
+                    <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}" data-product-type="{{product.type}}" data-product-title="{{product.title}}"  style="display: inline-block;">{{ product.metafields.stamped.badge }}</span>
+                  </span>
+                {% if product.metafields.my_fields.review_title != blank %}
+                  <span class="d-inline-block orange-text display-2">{{ product.metafields.my_fields.review_title }}</span>
+                {% endif %}
+                </div>
+              </div>
+              {% if product.metafields.my_fields.short_description != blank %}
+                <div class="col-12 p-0 py-3 short_disc d-md-block d-none">
+                  {{ product.metafields.my_fields.short_description }}
+                </div>
+              {% endif %}
+              {% if product.metafields.my_fields.addvantage_text != blank %}
+              <div class="col-12 p-0 advantage-text-item d-md-block d-none">
+                  {{ product.metafields.my_fields.addvantage_text }}
+              </div>
+              {% endif %}
+              
+              {% include 'product_form' %}
+
+              <div class="site-footer__payment-icons text-center">
+                {% if section.settings.payment_txt != blank %}
+                  <p class="text-center display-4 mb-0 fw-600">{{ section.settings.payment_txt }}</p>
+                {% endif %}
+                <ul class="payment-icons list--inline site-footer__icon-list p-0">
+                  <li class="payment-icon">
+                      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/217425.png?v=1627534260" />
+                  </li>
+                  <li class="payment-icon">
+                      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/217445.png?v=1627534259" />
+                  </li>
+                  <li class="payment-icon">
+                      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/217422.png?v=1627534259" />
+                  </li>
+                  <li class="payment-icon">
+                      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/217423.png?v=1627534259" />
+                  </li>
+                  <li class="payment-icon">
+                      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/klarna-240_1.png?v=1627534259" />
+                  </li>
+                  <li class="payment-icon">
+                      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/217447.png?v=1627534259" />
+                  </li>
+                  <li class="payment-icon">
+                      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/217448.png?v=1627534259" />
+                  </li>
+                  <li class="payment-icon">
+                      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/217449.png?v=1627534259" />
+                  </li>
+                  <li class="payment-icon">
+                      <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/217450.png?v=1627534259" />
+                  </li>
+                </ul>
+              </div>
+              
+              {% if product.metafields.my_fields.extra_description_title != blank %}
+              <div class="extra_info mt-4 d-lg-block d-none">
+                 <h4 class="">{{ product.metafields.my_fields.extra_description_title }}</h4>
+                 <p>{{ product.metafields.my_fields.extra_description }}</p>
+              </div>
+              {% endif %}
+              {% comment %}
+              <div class="product-head pt-5 pb-3 d-md-none d-block">
+                <h4 class="text-left mb-3">{{ product.metafields.my_fields.testimonial_title }}</h4>
+                <div class="review_box d-flex justify-content-between align-items-center">
+                  <span class="review-pro text-left">
+                    <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}" data-product-type="{{product.type}}" data-product-title="{{product.title}}"  style="display: inline-block;">{{ product.metafields.stamped.badge }}</span>
+                 </span>
+                {% if product.metafields.my_fields.review_title != blank %}
+                  <span class="d-inline-block orange-text display-2">{{ product.metafields.my_fields.review_title }}</span>
+                {% endif %}
+                </div>
+              </div>
+              {% endcomment %}
+              {% if product.metafields.my_fields.short_description != blank %}
+                <div class="col-12 p-0 py-3 short_disc d-md-none d-block">
+                  {{ product.metafields.my_fields.short_description }}
+                </div>
+              {% endif %}
+              {% if product.metafields.my_fields.addvantage_text != blank %}
+              <div class="col-12 p-0 advantage-text-item d-md-none d-block">
+                  {{ product.metafields.my_fields.addvantage_text }}
+              </div>
+              {% endif %}
+              {% if product.metafields.my_fields.extra_description_title != blank %}
+              <div class="extra_info mt-4 d-lg-none d-block">
+                 <h4 class="">{{ product.metafields.my_fields.extra_description_title }}</h4>
+                 <p>{{ product.metafields.my_fields.extra_description }}</p>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+  </div>
+</section>
+
+<!-- compare modal   -->
+<div class="modal fade compareModal" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+     <div class="modal-content">
+        <div class="modal-body position-relative">
+          <div class="modal_close cursor_pointer" data-dismiss="modal">{% include 'modal-close-icon' %}</div>
+           <div class="compare_modal pt-3">
+              <div class="row">
+                 <div class="col-md-6 border-right px-md-5 pb-4 pb-md-0">
+                    <div class="text-center">
+                       <div class="compare_modal_column">
+                          <h4 class="text-center mb-4">{{ product.metafields.my_fields.compare_left_title }}</h4>
+                          <div class="compare_img text-center">
+                             <img class="lazyload" data-src="{{ product.metafields.my_fields.compare_left_image | img_url: '400x' }}" alt="share original" />
+                          </div>
+                       </div>
+                    </div>
+                    <div class="product_share_column_info product_share_column_first_info">
+                      {{ product.metafields.my_fields.compare_left_info }}
+                    </div>
+                 </div>
+                 <div class="col-md-6 px-md-5">
+                    <div class="text-center">
+                       <div class="compare_modal_column d-inline-block">
+                          <h4 class="text-center mb-4">{{ product.metafields.my_fields.compare_right_title }}</h4>
+                          <div class="compare_img text-center">
+                             <img class="lazyload" data-src="{{ product.metafields.my_fields.compare_right_image | img_url: '400x' }}" alt="share original" />
+                          </div>
+                       </div>
+                    </div>
+                    <div class="product_share_column_info product_share_column_first_info">
+                      {{ product.metafields.my_fields.compare_right_info }}
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+{% include 'script_form_product' %}
+{% schema %}
+
+{
+"name": "Product pages",
+"settings": [
+    {
+        "type": "header",
+        "content": "Review Text"
+    },
+    {
+      "type": "text",
+      "id": "reviews_txt",
+      "label":"Text"
+    },
+    {
+      "type": "header",
+      "content": "Subscription Box"
+    },
+    {
+      "type": "textarea",
+      "id": "sub_mobile_title",
+      "label": "Mobile Title"
+    },
+    {
+      "type": "textarea",
+      "id": "sub_txt",
+      "label":"Title"
+    },
+    {
+      "type": "header",
+      "content": "Subscription Icon Box"
+    },
+    {
+      "type": "html",
+      "id": "icon_1",
+      "label":"Icon 1"
+    },
+    {
+      "type": "textarea",
+      "id": "icon_1_txt",
+      "label":"Icon 1 Title"
+    },
+    {
+      "type": "html",
+      "id": "icon_2",
+      "label":"Icon 2"
+    },
+    {
+      "type": "textarea",
+      "id": "icon_2_txt",
+      "label":"Icon 2 Title"
+    },
+    {
+      "type": "header",
+      "content": "Quantity Title"
+    },
+    {
+      "type": "text",
+      "id": "qty_txt",
+      "label":"Text"
+    },
+    {
+      "type": "header",
+      "content": "Payment Title"
+    },
+    {
+      "type": "textarea",
+      "id": "payment_txt",
+      "label":"Text"
+    },
+    {
+      "type": "header",
+      "content": "Media Pack Title"
+    },
+    {
+      "type": "textarea",
+      "id": "media_title",
+      "label":"Text"
+    }
+  ]
+}
+{% endschema %}

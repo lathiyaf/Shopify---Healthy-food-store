@@ -1,0 +1,40 @@
+{% if section.settings.enable_sec %}
+    {% include 'banner' %}
+{% endif %}
+<style>
+    .banner-inner{
+        background:{{ section.settings.bg-color }};
+    }
+</style>
+{% schema %}
+{
+    "name": "Shipping Information",
+    "settings":[
+        {
+            "type": "checkbox",
+            "id": "enable_sec",
+            "label": "Enable Section?"
+        },
+        {
+            "type": "color",
+            "id": "bg-color",
+            "label": "Background Color"
+        },
+        {
+            "type": "textarea",
+            "id": "title_txt",
+            "label": "Title"
+        },
+        {
+            "type": "richtext",
+            "id": "subtitle_txt",
+            "label": "SubTitle"
+        },
+        {
+            "type":"image_picker",
+            "id":"anim_img",
+            "label":"Animation leaf"
+        }
+    ]
+}
+{% endschema %}

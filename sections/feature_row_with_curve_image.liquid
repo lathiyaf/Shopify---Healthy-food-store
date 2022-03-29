@@ -1,0 +1,133 @@
+<section class="feature-curve_img">
+    <div class="container-fluid p-0 position-ralative">
+        <div class="row align-items-center m-0 ">
+            <div class="col-lg-6 p-0 mb-lg-0 mb-5">
+                <div class="img_main_div">
+					{% if section.settings.image != blank %}
+						{%- assign preview_image = section.settings.image  -%}
+						{%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+						{% unless preview_image == blank %}
+							{% include 'image-style', image: preview_image, height: max_height %}
+						{% endunless %}
+						<img id="{{ img_id }}"
+						class="lazyautosizes lazyload js"
+						alt="{{ preview_image.alt }}"
+						data-src="{{ img_url }}"
+						data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+						data-aspectratio="{{ preview_image.aspect_ratio }}"
+						data-sizes="auto"
+						data-image  data-index="{{ forloop.index }}">
+					{% endif %}
+				</div>
+            </div>
+            <div class="col-lg-5">
+                <div class="content_text text-lg-left text-center pr-lg-5 pr-0">
+                    {% if section.settings.title != blank %}
+                        <h3>{{ section.settings.title }}</h3>
+                    {% endif %}
+
+                    {% if section.settings.subtitle != blank %}
+                        <h5 class="my-4">{{ section.settings.subtitle }}</h5>
+                    {% endif %}
+
+                    {% if section.settings.btn_url != blank %}
+                        <a class="button-all mx-lg-0 mx-auto w-full-mob shadow-none" href="{{ section.settings.btn_url }}">{{ section.settings.btn_label }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% if section.settings.item_image != blank %}
+            <div class="curve_section_item position-absolute animation_img">
+                <img class="lazyload" data-src="{{ section.settings.item_image | img_url: 'large' }}" width="125" height="275" alt="Animation Image" data-aos="fade-left" data-aos-offset="300" data-aos-duration="2000" />
+            </div>
+        {% endif %}
+        
+        {% if section.settings.item_image_2 != blank %}
+            <div class="curve_section_item_2 position-absolute animation_img">
+                <img class="lazyload" data-src="{{ section.settings.item_image_2 | img_url: 'large' }}" width="207" height="193" alt="Animation Image" data-aos="fade-left" data-aos-offset="200" data-aos-duration="2000" />
+            </div>
+        {% endif %}
+    </div>
+</section>
+<style>
+    .img_main_div{
+      background: linear-gradient(0deg, {{- section.settings.bg_shape_color -}} 0%, {{- section.settings.bg_shape_color -}} 100%), url({{ section.settings.bg_shape_img | img_url: 'large' }});
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding: 100px 0 0 0;
+    }
+</style>
+{% schema %}
+  {
+    "name": "Feature row with curve",
+	"class": "section_start",
+    "settings": [
+
+	{
+		"type":"header",
+		"content":"left side"
+	},
+  	{
+		"type":"image_picker",
+		"id":"image",
+		"label":"Image"
+	},
+	{
+		"type":"image_picker",
+		"id":"bg_shape_img",
+		"label":"Background shape image"
+	},
+	{
+		"type":"text",
+		"id":"bg_shape_color",
+		"label":"Background shape color",
+		"info":"Only RGBA supported"
+	},
+	{
+		"type":"header",
+		"content":"right side"
+	},
+	{
+		"type":"text",
+		"id":"title",
+		"label":"Title"
+	},	
+	{
+		"type":"textarea",
+		"id":"subtitle",
+		"label":"Subtitle"
+	},
+	{
+		"type":"text",
+		"id":"btn_label",
+		"label":"Button label"
+	},
+	{
+		"type":"url",
+		"id":"btn_url",
+		"label":"Button Link"
+	},
+    {
+		"type":"image_picker",
+		"id":"item_image",
+		"label":"Item image"
+	},
+	{
+		"type":"image_picker",
+		"id":"item_image_2",
+		"label":"Item image 2"
+	}
+
+	],
+	"presets": [
+    {
+      "name": {
+        "en": "Feature row with curve image"
+      },
+      "category": {
+          "en": "Home page section"
+      }
+	}
+  ]
+  }
+{% endschema %}

@@ -1,0 +1,39 @@
+<section class="ambassador-richtext">
+    <div class="container">
+        {% if section.settings.richtext_1 != blank %}
+        <div class="richtext col-12">
+            {{ section.settings.richtext_1 }}
+        </div>
+        {% endif %}
+        {% if section.settings.richtext_2 != blank %}
+        <div class="richtext bullet_text col-12">
+            {{ section.settings.richtext_2 }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% schema %}
+{
+    "name": "Ambassador Richtext",
+    "settings":[
+        {
+            "type": "header",
+            "content": "Richtext"
+        },
+        {
+            "type": "richtext",
+            "id": "richtext_1",
+            "label": "Text"
+        },
+        {
+            "type": "header",
+            "content": "Richtext With Label"
+        },
+        {
+            "type": "richtext",
+            "id": "richtext_2",
+            "label": "Text"
+        }
+    ]
+}
+{% endschema %}

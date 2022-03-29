@@ -1,0 +1,531 @@
+<!doctype html>
+<html class="no-js" lang="{{ shop.locale }}" style="padding-bottom:0px">
+
+<head>
+
+<script>
+/* >> TriplePixel :: start*/
+~function(W,H,A,L,E){try{A.setItem(H,1+(0|A.getItem(H)||0)),W.includes("⇈")&&A.setItem(H+"Stg",1+(0|A.getItem(H+"Stg")||0))}catch(e){}function O(T,R){void 0===R&&(R=!1),H=new XMLHttpRequest,H.open("GET","//triplewhale-pixel.web.app/triplepx.txt?"+~(Date.now()/9e7),!0),H.send(null),H.onreadystatechange=function(){4===H.readyState&&200===H.status?setTimeout(function(){return eval(H.responseText)},50):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(T-1))}}A=window,A[H]||(L=function(){return"tp.."+Date.now().toString(36)+Math.random().toString(36)},E=A[H]=function(t,e,n){return W=L(),(E._q=E._q||[]).push([W,e,n]),W},E.ch=W,O(5))}("","TriplePixel",localStorage);
+/* << TriplePixel :: end*/
+</script>
+
+<script data-obct type = "text/javascript">
+  /** DO NOT MODIFY THIS CODE**/
+  !function(_window, _document) {
+    var OB_ADV_ID = '00484d81d2b43c526a9ac1188066c470f7';
+    if (_window.obApi) {
+      var toArray = function(object) {
+        return Object.prototype.toString.call(object) === '[object Array]' ? object : [object];
+      };
+      _window.obApi.marketerId = toArray(_window.obApi.marketerId).concat(toArray(OB_ADV_ID));
+      return;
+    }
+    var api = _window.obApi = function() {
+      api.dispatch ? api.dispatch.apply(api, arguments) : api.queue.push(arguments);
+    };
+    api.version = '1.1';
+    api.loaded = true;
+    api.marketerId = OB_ADV_ID;
+    api.queue = [];
+    var tag = _document.createElement('script');
+    tag.async = true;
+    tag.src = '//amplify.outbrain.com/cp/obtp.js';
+    tag.type = 'text/javascript';
+    var script = _document.getElementsByTagName('script')[0];
+    script.parentNode.insertBefore(tag, script);
+  }(window, document);
+
+  obApi('track', 'PAGE_VIEW');
+</script>
+
+<script>
+        obApi('track', 'PageView');
+      </script>
+  <script>
+    var d = new Date();
+d.setTime(d.getTime());
+var expires = "expires="+d.toUTCString();
+document.cookie = 'cart' + "=" + "" + ";domain=.shareoriginalshop.com;path=/;" + expires;
+
+  
+  </script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_accent }}">
+  <link rel="alternate" hreflang="de" href="{{ canonical_url }}">
+  <link rel="alternate" hreflang="en" href="https://en.{{ full_url }}">
+  <link rel="alternate" hreflang="it" href="https://it.{{ full_url }}">
+<script>var head = document.head;var script = document.createElement('script');script.type = 'text/javascript';script.src = "https://178627.tracking.hyros.com/v1/lst/universal-script?ph=f4e64233f20a58af5b932db34324a74ba8fb85fb8f389a4d43ee2c769027c3d9&tag=!tracking";head.appendChild(script);</script>
+
+  {% comment %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  {% endcomment %}
+
+  <!-- Site Preloads -->
+  <link rel="preload" href="{{ 'animate.css' | asset_url }}" as="style">
+  <link rel="preload" href="{{ 'layout.theme.css' | asset_url }}" as="style">
+  <link rel="preload" href="{{ 'jquery.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'vendors@layout.theme.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'layout.theme.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'vivus.min.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'wow.min.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'fontAwesome.js' | asset_url }}" as="script">
+  <link rel="preload" href="{{ 'option_selection.js' | shopify_asset_url }}" as="script">
+  <!-- End Site Preloads -->
+
+ 
+
+  {%- if settings.favicon != blank -%}
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {%- endif -%}
+  {%- assign full_url = canonical_url | split: '://www.' | last | split: '://' | last -%}
+   
+
+    
+  {%- capture seo_title -%}
+  {{ page_title }}
+  {%- if current_tags -%}
+  {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+  {%- endif -%}
+  {%- if current_page != 1 -%}
+  &ndash; {{ 'general.meta.page' | t: page: current_page }}
+  {%- endif -%}
+  {%- assign escaped_page_title = page_title | escape -%}
+  {%- unless escaped_page_title contains shop.name -%}
+  &ndash; {{ shop.name }}
+  {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title | strip }}</title>
+
+  {%- if page_description -%}
+  <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {% include 'social-meta-tags' %}
+  {% include 'style-tags', layout: 'theme' %}
+  {% include 'css-variables' %}
+  <link rel="stylesheet" href="{{ 'animate.css' | asset_url }}" type="text/css">
+
+  
+  <script  type="text/javascript" defer>
+    document.documentElement.className = document.documentElement.className.replace('no-js', '');
+
+    window.theme = {
+      strings: {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }}
+      },
+      moneyFormat: {{ shop.money_format | json }}
+    };
+  </script>
+  <script src="{{ 'jquery.js' | asset_url }}"></script> 
+  <script src="{{ 'fontAwesome.js' | asset_url }}" defer="defer"></script> 
+  
+  <script  type="text/javascript" defer>
+        setTimeout(function() {
+          $('#loading').hide();
+        }, 2000);
+  </script>
+
+  {% include 'script-tags', layout: 'theme' %}
+
+  
+    
+    {% render 'header-scripts.zipifypages', renderctx: 'thm' %}{{ content_for_header }}
+   
+
+    <script  type="text/javascript" defer>
+    window.mlvedaShopCurrency = "{{ shop.currency }}";
+    window.shopCurrency = "{{ shop.currency }}";
+    window.supported_currencies = "{{ settings.mlvedaACS_supportedCurrencies }}";
+  </script>
+  
+
+</head>
+<div id="loading">
+    <img id="loading-image"  src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/share-original_shop_2.png?v=1623847560" alt="Loading..." />
+  </div>
+  <style>
+    #loading {
+          position: fixed;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          opacity: 1;
+          background-color: #fff;
+          z-index: 9999999999999;
+        }
+        
+      #loading-image {
+          z-index: 100;
+          max-width:80%;
+          width:max-content;
+      }
+  </style>
+<body id="{{ page_title | handle }}" class=" {{ page_title | handle }}-page template-{{ template.name | handle }} " style="overflow-x: hidden;">
+  {% section 'header' %}
+  {% comment %}
+  {% unless template == 'cart' %}
+    {% include 'cart-drawer' %}
+  {% endunless %}
+  {% endcomment %}
+  <main role="main" id="MainContent">
+    {{ content_for_layout }}	
+  </main>
+  {% unless template == 'index' or template == 'product' or template == 'product.sample' or template == 'product.shareaqua' or template == 'page.custom.zipifypages' or template == 'product.zipifypages-l165j' or  template == 'customers/login' or template == 'customers/register' or template == 'cart' or template == 'customers/reset_password' %}
+    {% section 'promo_products' %}
+  {% endunless %}
+  {% if template == 'product' or template == 'product.shareaqua' or template == 'product.sample' %}
+    {% include 'fix-buybar' %}
+  {% endif %}
+  {% section 'footer' %}
+  <script src="{{ 'vivus.min.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'wow.min.js' | asset_url }}" defer="defer"></script>
+  <script  type="text/javascript" defer>
+       
+
+    $( document ).ready(function() {
+    	AOS.init({disable: 'mobile'});
+    });
+    $(document).ready(function () {
+                
+                if (document.getElementById('line_draw')) {
+                    var logo = new Vivus("line_draw", {
+                            type: 'async',
+                            duration: 150,
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#line_draw').attr('class', 'animated_yellow');
+                            $('.product_item img').addClass('product_item_show');
+                        });
+                }
+            
+                if (document.getElementById('animation_item_first')) {
+                    var logo = new Vivus('animation_item_first', {
+                            duration: 500,
+                            type: 'async',
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#animation_item_first').attr('class', 'animated_white');
+                        });
+            
+                }
+            
+                if (document.getElementById('animation_item_second')) {
+                    var logo = new Vivus('animation_item_second', {
+                            duration: 300,
+                            type: 'async',
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#animation_item_second').attr('class', 'animated_white');
+                        });
+            
+                }
+            
+                if (document.getElementById('hero_anim')) {
+                    var logo = new Vivus('hero_anim', {
+                        type: 'async',
+                        duration: 500,
+                        animTimingFunction: Vivus.EASE,
+                        start: 'autostart'
+                    });
+                }
+                if (document.getElementById('tracker_anim')) {
+                    var logo = new Vivus('tracker_anim', {
+                        type: 'async',
+                        duration: 1000,
+                        animTimingFunction: Vivus.EASE,
+                        start: 'inViewport'
+                    });
+                }
+                if (document.getElementById('line_draw_4')) {
+                    var logo = new Vivus('line_draw_4', {
+                        type: 'async',
+                        duration: 500,
+                        animTimingFunction: Vivus.EASE,
+                        start: 'inViewport'
+                    });
+                }
+                if (document.getElementById('line_draw_5')) {
+                    var logo = new Vivus('line_draw_5', {
+                        type: 'async',
+                        duration: 500,
+                        animTimingFunction: Vivus.EASE,
+                        start: 'inViewport'
+                    });
+                }
+                if (document.getElementById('prod_sec')) {
+                    var logo = new Vivus('prod_sec', {
+                        type: 'async',
+                        duration: 500,
+                        animTimingFunction: Vivus.EASE,
+                        start: 'inViewport'
+                    });
+                }
+                
+            });
+
+            // SVG line and fill animation
+            $(document).ready(function () {
+                if (document.getElementById('curve_leaf_anim')) {
+                    var logo = new Vivus("curve_leaf_anim", {
+                            type: 'async',
+                            duration: 300,
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#curve_leaf_anim').attr('class', 'animated_orange');
+                        });
+                }
+                
+                if (document.getElementById('hero_anim_two')) {
+                    var logo = new Vivus('hero_anim_two', {
+                            type: 'async',
+                            duration: 500,
+                            animTimingFunction: Vivus.EASE,
+                            start: 'autostart'
+                        },
+                        function () {
+                            $('#hero_anim_two').attr('class', 'animated_yellow');
+                        });
+                }
+                if (document.getElementById('feature_leaf')) {
+                    var logo = new Vivus('feature_leaf', {
+                            duration: 500,
+                            type: 'async',
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#feature_leaf').attr('class', 'animated_orange');
+                        });
+                }
+                if (document.getElementById('feature_leaf_2')) {
+                    var logo = new Vivus('feature_leaf_2', {
+                            duration: 500,
+                            type: 'async',
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#feature_leaf_2').attr('class', 'animated_orange');
+                        });
+                }
+                if (document.getElementById('natural_label')) {
+                    var logo = new Vivus('natural_label', {
+                            duration: 200,
+                            type: 'async',
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#natural_label').attr('class', 'animated_natural');
+                        });
+                }
+                if (document.getElementById('line_draw_2')) {
+                    var logo = new Vivus("line_draw_2", {
+                            type: 'async',
+                            duration: 150,
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#line_draw_2').attr('class', 'animated_yellow');
+                            $('.product_item_2 img').addClass('product_item_show');
+                        });
+                }
+                if (document.getElementById('animation_item_1')) {
+                    var logo = new Vivus('animation_item_1', {
+                            duration: 500,
+                            type: 'async',
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#animation_item_1').attr('class', 'animated_white');
+                        });
+                }
+                if (document.getElementById('animation_item_2')) {
+                    var logo = new Vivus('animation_item_2', {
+                            duration: 300,
+                            type: 'async',
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#animation_item_2').attr('class', 'animated_white');
+                        });
+                }
+                if (document.getElementById('info_natural_anim')) {
+                    var logo = new Vivus('info_natural_anim', {
+                            duration: 200,
+                            type: 'async',
+                            animTimingFunction: Vivus.EASE,
+                            start: 'inViewport'
+                        },
+                        function () {
+                            $('#info_natural_anim').attr('class', 'sample_pack_anim');
+                        });
+                }
+            });
+  </script>
+{% if template == 'product' or template == 'product.sample' or template == 'product.shareaqua' %}
+    <script  type="text/javascript" defer>
+        window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
+            if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
+                document.getElementById("product_bar_fixed").style.bottom = "0";
+                $("body").addClass("sticky_bar");
+                
+            } else {
+                document.getElementById("product_bar_fixed").style.bottom = "-100%";
+                $("body").removeClass("sticky_bar");
+            }
+        }
+
+        
+    </script>
+    
+{% endif %}
+{% if template == 'index' %}
+    <script  type="text/javascript" defer>
+    var divisor = document.getElementById("divisor"),
+        handle = document.getElementById("handle"),
+        slider = document.getElementById("slider");
+
+    function moveDivisor() {
+    handle.style.top = slider.value+"%";
+        divisor.style.height = slider.value+"%";
+    }
+
+    window.onload = function() {
+        moveDivisor();
+    };
+</script>
+{% endif %}
+
+<style>
+  @media screen and (max-width: 690px){
+    #stamped-reviews-widget[data-widget-type=carousel] .stamped-carousel-scroll .stamped-reviews-message {
+        margin-left:0px!important;
+        line-height: 16px!important;
+        font-size: 14px;
+    }
+    #stamped-reviews-widget[data-widget-type=carousel] .stamped-carousel-scroll .stamped-reviews-author {
+        margin-left: 0px!important;
+    }
+    .stamped-reviews-filter[data-show-filters=part], .stamped-reviews-filter[data-show-filters=true]{
+        padding-bottom:0 !important;
+    }    
+    @media (max-width:767px) {
+        .stamped-review-body, [data-widget-type=minimal] .stamped-review>.stamped-review-content{
+            margin-left:0 !important; 
+        }
+        .stamped-review .author{
+            font-size:20px;
+            display: block;
+            margin-bottom:5px;
+        }
+        .stamped-review-avatar-content{
+            width:50px;
+            height:50px;
+            font-size:16px;
+        }
+        .stamped-review-header .stamped-verified-badge[data-type=buyer][data-verified-label]:after{
+            font-size:14px;
+        }
+        .fa-star-half-o:before, .fa-star-o:before, .fa-star:before, .stamped-fa-star-half-o:before, .stamped-fa-star-o:before, .stamped-fa-star:before{
+            font-size:14px;
+            margin-right:5px;
+        }
+        [data-widget-type=minimal] .stamped-review-header-starratings{
+            margin-top:0;
+            margin-bottom:6px;
+            margin-left:70px;
+        }
+        p.stamped-review-content-body, .stamped-review-header-title{
+            font-size:14px !important;
+            margin-bottom:5px;
+            font-weight:600 !important;
+            color:#777777;
+        }
+        .stamped-review-header-title{
+            font-size:14px !important;
+            font-weight:600 !important;
+            color:#2C2D32;
+        }
+        .stamped-review{
+            border-bottom:1px solid #cccccc;
+            padding:20px 0 !important;
+        }
+        .stamped-pagination{
+            margin-top:30px !important;
+        }
+    } 
+  }
+</style>
+<div id="overlay_div"></div>
+{% include 'stamped-rewards-init' %}
+<!-- Stamped - Begin script -->
+<script type="text/javascript" id="stamped-script-widget" data-api-key="pubkey-42tMn2TpG3meFl628vGgdZl3MS92k0" src="{{ 'widget.min.js' | asset_url }}" ></script>
+<!-- Stamped - End script --> 
+<style>
+    .stamped-rewards-position-left button.stamped-launcher-button {
+        bottom: 30px !important;
+        z-index:99 !important;
+    }
+    /* //dynamic buttons */
+    .shopify-cleanslate ._38ksdFFHosgt4hh6EjDuLm ul{
+        display:flex !important;
+        flex-wrap: wrap !important;
+        flex-direction:unset !important;
+    }
+    .shopify-cleanslate ul li{
+        width:100% !important;
+        flex-basis: unset !important;
+    }
+    @media (max-width:480px){
+        .shopify-cleanslate ul li{
+            width:calc( 50% - 4px ) !important;
+        }
+    }
+    .slideout-panel{
+      	will-change: unset !important;
+    	min-height:unset; 
+    }
+
+</style>
+<script>
+        // alert('Hi!!!');
+      
+      if (!navigator.cookieEnabled) {
+          const classToBeRemoved = 'hidden';
+          const elements = document.querySelectorAll('.cookieWarningClass');
+          console.log(elements.length); 
+          if (elements.length) {
+              elements.forEach((element) => {
+                  element.classList.remove(classToBeRemoved);
+              });
+          }
+      }
+  </script>
+{% render 'oneclickupsellapp-theme', oneclickupsellapp: oneclickupsellapp %}
+{% assign oneclickupsellapp = true %}
+{% render 'page-footer.zipifypages', renderctx: 'thm', ocuapp: ocuapp %}{% render 'awesome-quantity', product: product %}</body>
+
+</html>

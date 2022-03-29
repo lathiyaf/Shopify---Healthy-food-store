@@ -1,0 +1,102 @@
+<section class="wholesaler_form pt-0" id="wholesaler_form">
+    <div class="container">
+        {% form 'customer', id: 'contact-form' %}
+        <div class="col-12 mb-5 pb-3 px-0">
+            <div class="input-group">
+                <label>Textcontent box</label>
+                <textarea class="form-control" name="contact[Textcontent]" id="text-content" placeholder="Enter Textcontent"></textarea>
+            </div>
+        </div>
+        <div class="main_form_div">
+            <div class="row m-0">
+                <div class="col-12">
+                    <div class="title_div">
+                        <div class="img_div">
+                            {% include 'icon-wholesaler' %}
+                        </div>
+                        {% if section.settings.title_txt != blank %}
+                            <h4 class="mb-0">{{ section.settings.title_txt }}</h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3 mx-0">
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <label>Name</label>
+                        <input class="form-control" type="text" name="contact[name]" id="contact-name"  placeholder="Enter Name">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <label>Company Name</label>
+                        <input class="form-control" type="text" name="contact[commpany_name]" id="company-name" placeholder="Enter Company Name">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <label>Street</label>
+                        <input class="form-control" type="text" name="contact[street]" id="street" placeholder="Enter Street">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <label>Zip code</label>
+                        <input class="form-control" type="number" name="contact[zip_code]" id="zip-code" placeholder="Enter Zip code">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <label>City</label>
+                        <input class="form-control" type="text" name="contact[city]" id="city" placeholder="Enter City">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <label>Country</label>
+                        <select class="form-control">
+                            <option>Select Country</option>
+                            <option>India</option>
+                            <option>US</option>
+                            <option>Pakistan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <label>Website</label>
+                        <input class="form-control" type="text" name="contact[website]" id="contact-website" placeholder="Enter Website">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <label>Phone</label>
+                        <input class="form-control" type="number"  name="contact[contact-no]" id="contact-no" placeholder="Enter Phone">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <label>Tax Number</label>
+                        <input class="form-control" type="number" name="contact[tax-number]" id="tax-number" placeholder="Enter Tax Number">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="button-all mb-3 mx-auto w-full-mob shadow-none">Apply</button>
+                </div>
+            </div>
+        </div>
+        {% endform %}
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Wholesaler form",
+	"settings": [
+      {
+          "type": "textarea",
+          "id": "title_txt",
+          "label": "Title"
+      }
+    ]
+  }
+{% endschema %}

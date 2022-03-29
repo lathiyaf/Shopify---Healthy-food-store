@@ -1,0 +1,22 @@
+<section class="right-info">
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="richtext">
+                {{ section.settings.richtext }}
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Content Section",
+	"class": "section_start",
+    "settings": [
+  	  {
+          "type":"richtext",
+          "id":"richtext",
+          "label":"Text"
+      }
+	]
+  }
+{% endschema %}

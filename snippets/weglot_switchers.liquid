@@ -1,0 +1,41 @@
+<script type="text/javascript" src="{{'weglot.min.js' | asset_url }}"></script>
+<script>
+    Weglot.initialize({
+        api_key: 'wg_054f12635ba213d7925896944961d6a60',
+        switchers: [
+        {
+            // Same as button_style at root
+            button_style: {
+                full_name: false,
+                with_name: true,
+                is_dropdown: true,
+                with_flags: true,
+                flag_type: "circle",
+                invert_flags: false
+            },
+            // Move switcher somewhere in the page
+            location: {
+                target: ".language_menu", // You'll probably have to change it (see the step below in order to find the correct CSS selector)
+                sibling: null
+            }
+        },
+        {
+            // Same as button_style at root
+            button_style: {
+                full_name: true,
+                with_name: true,
+                is_dropdown: true,
+                with_flags: true,
+                flag_type: "square",
+                invert_flags: false
+            },
+            // Move switcher somewhere in the page
+            location: {
+                target: ".language_menu2", // You'll probably have to change it (see the step below in order to find the correct CSS selector)
+                sibling: null
+            }
+        }
+    ]
+    });
+</script>
+</script>

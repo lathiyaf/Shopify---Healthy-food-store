@@ -1,0 +1,58 @@
+<section class="search-section banner-section">
+    <div class="banner-div">
+        <div class="container search_form_con">
+            {% paginate search.results by 10 %}
+                <h5 class="text-center position-relative mb-5">
+                    {% if search.performed %}
+                    <span class="visually-hidden">{{ 'general.search.heading' | t: count: search.results_count }}:</span>
+                        {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+                    {% else %}
+                    {{ 'general.search.title' | t }}
+                    {% endif %}
+                </h5>
+                <div class="text-center search_form ">
+                <form action="/search" class="d-flex justify-content-center" method="get" role="search">
+                    <input type="search"
+                        name="q"
+                        id="Search"
+                        value="{{ search.terms | escape }}"
+                        placeholder="{{ 'general.search.placeholder' | t }}">
+                    <button type="submit" class="button-all ml-3">
+                        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+                    </button>
+                </form>
+                </div>
+                {% if search.performed %}
+                    {% if search.results_count == 0 %}
+                    <p class="search_form">{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
+                    {% else %}
+                    <div class="row">
+                        <div class="col-12 p-0" id="main_pro_div">
+                            <div class="row m-0 product_row">
+                            {% for item in search.results %}
+                                <div class="col-lg-4 col-md-4 col-6 p-2">
+                                    <div class="product_box">
+                                        <a href="{{ item.url }}">
+                                            <div class="img_box">
+                                                <img class="lazyload" data-src="{{item.featured_image|img_url:'original'}}" alt="{{item.title}}" id="img-{{forloop.index}}"> 
+                                            </div>
+                                        </a>
+                                        <div class="content_div">
+                                            <h5 class="display-1 fw-500 netto_ot mb-3">{{ item.title }}</h5>
+                                            <a class="button-all m-auto" href="{{ item.url }}">Buy Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if paginate.pages > 1 %}
+                            {% include 'pagination' %}
+                        {% endif %}
+                        {% endif %}
+                    {% endif %}
+            {% endpaginate %}
+        </div>
+    </div>
+</section>

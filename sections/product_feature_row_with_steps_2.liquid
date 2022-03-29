@@ -1,0 +1,113 @@
+{% assign product_1 = all_products[section.settings.product_1] %}
+{% assign product_2 = all_products[section.settings.product_2] %}
+<section class="feature-row-with-steps-product">
+    <div class="container">
+        <div class="title_div mb-5 text-center">
+            {% if section.settings.subtitle != blank %}
+                <h5>{{ section.settings.subtitle }}</h5>
+            {% endif %}
+            {% if section.settings.title != blank %}
+                <h3 class="mb-0">{{ section.settings.title }}</h3>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-lg-7 ">
+                <div class="content_div d-lg-none d-block mb-5">
+                    {% if section.settings.richtext != blank %}
+                        <div class="richtext display-3 text-center">{{ section.settings.richtext }}</div>
+                    {% endif %}
+                    {% if section.settings.btn_url != blank %}
+                        <a class="button-all my-4 m-auto" href="{{ section.settings.btn_url }}">{{ section.settings.btn_label }}</a>
+                    {% endif %}
+                </div>
+                <div class="row m-0 align-items-center">
+                    <div class="col-lg-6 col-5">
+                        <div class="main_product_img">
+                            <div class="step_image text-center">
+                                <img data-src="{{ product_1.featured_image | img_url :'original' }}" alt="Image" class="aos-init lazyload aos-animate" data-aos="zoom-in" data-aos-duration="1000" data-aos-offset="300">
+                             </div>
+                            <div class="step_image text-center">
+                                <img data-src="{{ product_2.featured_image | img_url :'original' }}" alt="Image" class="aos-init lazyload aos-animate" data-aos="zoom-in" data-aos-duration="1000" data-aos-offset="300">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 col-lg-2">
+                        <div class="step_arrow text-center aos-init aos-animate" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200" data-aos-offset="300">
+                            <svg width="90" height="34" viewBox="0 0 90 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                               <path d="M89.198 15.0636L89.1955 15.061L74.9079 0.842261C73.8375 -0.222914 72.1063 -0.21895 71.0408 0.851557C69.9755 1.92193 69.9796 3.6532 71.05 4.71851L80.6427 14.2648H2.73438C1.22418 14.2648 0 15.4889 0 16.9991C0 18.5093 1.22418 19.7335 2.73438 19.7335H80.6426L71.0501 29.2798C69.9797 30.3451 69.9756 32.0763 71.0409 33.1467C72.1064 34.2174 73.8378 34.221 74.908 33.156L89.1957 18.9373L89.1981 18.9347C90.2691 17.8658 90.2656 16.1289 89.198 15.0636Z" fill="#E8BD6E"></path>
+                            </svg>
+                         </div>
+                     </div>
+                     <div class="col-5 col-lg-2">
+                        {% if section.settings.img_step_2 != blank %}
+                        <div class="step_image  text-center">
+                            <img class="glass_img aos-init lazyload aos-animate" data-src="{{ section.settings.img_step_2 | img_url : '200x' }}" alt="Image" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="400" data-aos-offset="300">
+                        </div>
+                        {% endif %}
+                     </div>
+                     <div class="col-lg-2  col-5 ml-lg-0 ml-auto">
+                        <div class="step_arrow text-center aos-init aos-animate" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200" data-aos-offset="300">
+                            <svg width="90" height="34" viewBox="0 0 90 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                               <path d="M89.198 15.0636L89.1955 15.061L74.9079 0.842261C73.8375 -0.222914 72.1063 -0.21895 71.0408 0.851557C69.9755 1.92193 69.9796 3.6532 71.05 4.71851L80.6427 14.2648H2.73438C1.22418 14.2648 0 15.4889 0 16.9991C0 18.5093 1.22418 19.7335 2.73438 19.7335H80.6426L71.0501 29.2798C69.9797 30.3451 69.9756 32.0763 71.0409 33.1467C72.1064 34.2174 73.8378 34.221 74.908 33.156L89.1957 18.9373L89.1981 18.9347C90.2691 17.8658 90.2656 16.1289 89.198 15.0636Z" fill="#E8BD6E"></path>
+                            </svg>
+                         </div>
+                     </div>
+                </div>
+                <div class="content_div d-lg-block d-none">
+                    {% if product.metafields.product_step.product_step_info != blank %}
+                        <div class="my-4 richtext display-3">{{ product.metafields.product_step.product_step_info }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-5">
+                {% if section.settings.img_step_3 != blank %}
+                <div class="img_div text-center">
+                    <img data-src="{{ section.settings.img_step_3 | img_url : '400x' }}" alt="Image" class="aos-init lazyload aos-animate" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="600" data-aos-offset="500">
+                </div>
+                {% endif %}
+                <div class="content_div pt-5 d-lg-none d-block">
+                    {% if product.metafields.product_step.product_step_info != blank %}
+                        <div class="my-4 richtext display-3">{{ product.metafields.product_step.product_step_info }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Feature row with steps",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Subtitle"
+        },
+        {
+            "type": "product",
+            "id": "product_1",
+            "label": "Product 1"
+        },
+        {
+            "type": "product",
+            "id": "product_2",
+            "label": "Product 2"
+        },
+        {
+            "type": "image_picker",
+            "id": "img_step_2",
+            "label": "Step 2 Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "img_step_3",
+            "label": "Step 3 Image"
+        }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,129 @@
+{% assign product_1 = all_products[section.settings.product_1] %}
+{% assign product_2 = all_products[section.settings.product_2] %}
+<section class="product-related p-0">
+    <div class="container">
+        <div  class="row align-items-center py-5">
+            <div class="col-lg-6 order-lg-1 order-2">
+                <div class="content_div">
+                    <h4 class="mb-3">{{ product_1.title }}</h4>
+                    {% if section.settings.title_txt != blank %}
+                        <h4 class="mb-3">{{ section.settings.title_txt }}</h4>
+                    {% endif %}
+                    {% if section.settings.rich_txt != blank %}
+                    <div class="richtext">
+                        {{ section.settings.rich_txt }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-2 order-1 mb-lg-0 mb-5">
+                {% if section.settings.image_1 != blank %}
+                <div class="img_div">
+                    {%- assign preview_image_1 = section.settings.image_1 -%}
+                        {%- assign img_url = preview_image_1 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                        {% unless preview_image_1 == blank %}
+                            {% include 'image-style', image: preview_image_1, height: max_height %}
+                        {% endunless %}
+                        <img id="{{ img_id }}"
+                        class="lazyautosizes lazyload js"
+                        alt="{{ preview_image_1.alt }}"
+                        data-src="{{ img_url }}"
+                        data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                        data-aspectratio="{{ preview_image_1.aspect_ratio }}"
+                        data-sizes="auto"
+                        data-image  data-index="{{ forloop.index }}">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div  class="row align-items-center py-5">
+            <div class="col-lg-6 mb-lg-0 mb-5">
+                {% if section.settings.image_2 != blank %}
+                <div class="img_div">
+                    {%- assign preview_image_2 = section.settings.image_2 -%}
+                        {%- assign img_url = preview_image_2 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                        {% unless preview_image_2 == blank %}
+                            {% include 'image-style', image: preview_image_2, height: max_height %}
+                        {% endunless %}
+                        <img id="{{ img_id }}"
+                        class="lazyautosizes lazyload js"
+                        alt="{{ preview_image_2.alt }}"
+                        data-src="{{ img_url }}"
+                        data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                        data-aspectratio="{{ preview_image_2.aspect_ratio }}"
+                        data-sizes="auto"
+                        data-image  data-index="{{ forloop.index }}">
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-6">
+                <div class="content_div">
+                    <h4 class="mb-3">{{ product_2.title }}</h4>
+                    {% if section.settings.title_txt_2 != blank %}
+                        <h4 class="mb-3">{{ section.settings.title_txt_2 }}</h4>
+                    {% endif %}
+                    {% if section.settings.rich_txt_2 != blank %}
+                    <div class="richtext">
+                        {{ section.settings.rich_txt_2 }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+{
+    "name": "Product Related",
+    "settings":[
+        {
+            "type": "header",
+            "content": "Product 1"
+        },
+        {
+            "type": "product",
+            "id": "product_1",
+            "label": "Product 1"
+        },
+        {
+            "type": "textarea",
+            "id": "title_txt",
+            "label": "Title"
+        },
+        {
+            "type": "richtext",
+            "id": "rich_txt",
+            "label": "Text"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_1",
+            "label": "Image"
+        },
+        {
+            "type": "header",
+            "content": "Product 2"
+        },
+        {
+            "type": "product",
+            "id": "product_2",
+            "label": "Product 2"
+        },
+        {
+            "type": "textarea",
+            "id": "title_txt_2",
+            "label": "Title"
+        },
+        {
+            "type": "richtext",
+            "id": "rich_txt_2",
+            "label": "Text"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_2",
+            "label": "Image"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,93 @@
+<div class="buybar" id="product_bar_fixed">
+    <div class="container position-relative">
+        {%- liquid
+            assign current_variant = product.selected_or_first_available_variant | default: product.variants.first
+            assign current_selling_plan_allocation = current_variant.selected_selling_plan_allocation
+           
+            if current_selling_plan_allocation == nil and current_variant.requires_selling_plan
+             assign current_selling_plan_allocation = current_variant.selling_plan_allocations | first
+            endif
+           
+            assign offer = current_selling_plan_allocation | default: current_variant
+           -%}
+           {% if template == 'product.sample' %}
+           <form action="/cart/add" method="post" class="Sample_form">
+           {% else %}
+            <form action="/cart/add" method="post"  enctype="multipart/form-data" class="product_cart_form product_cart_normal_form" >
+                <input type="hidden" class="Fix_Product_Id" name="id" value={{ current_variant.id }}>
+                <input type="hidden" class="Fix_Selling_Id" name="selling_plan" value="{{ current_selling_plan_allocation.selling_plan.id | default: '' }}">
+
+           {% endif %}
+           {% comment %}
+            <select name="id" id="product-select" class="product-select product-single__variants d-none" data-productid="{{product.id}}">
+                {% for variant in product.variants %}
+                {% if variant.available %}
+                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} {% assign featured_image = product.images.first | default: product.featured_image %} value="{{ variant.id }}">	
+                    {{ variant.title }}
+                </option>
+                {% else %}
+                    <option disabled="disabled">
+                    {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                    </option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            {% endcomment %}
+
+            <div class="row align-items-center">
+                <div class="col-md-6 d-flex align-items-center justify-content-between p-0">
+                    <div class="img_main_div d-flex align-items-center">
+                        <div class="img_div">
+                            <img src="{{product.featured_image | img_url: '70x'}}" alt="{{ product.title }}">
+                        </div>
+                        <p class="title_prod mb-0 fw-600">{{ product.title }}</p>
+                    </div>
+                    <div class="selector_div d-md-none d-block">
+                        {% if product.available and product.variants.size > 1 %}
+                            {% render 'swatch_fix' for product.options as swatch %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6 p-0 d-flex align-items-center justify-content-end">
+                    <div class="selector_div d-md-block d-none">
+                        {% if product.available and product.variants.size > 1 %}
+                            {% render 'swatch_fix' for product.options as swatch %}
+                        {% endif %}
+                    </div>
+                    <div class="btn_div btn_div_1  text-right w-100">
+                        {% if template == 'product.sample' %}
+                        {% assign in_cart = 'no' %}
+                            {% for item in cart.items %}
+                            {% if item.product.title == product.title %}
+                            {% assign in_cart = 'yes' %}
+                            {% endif %}
+                            {% endfor %}
+                            {% if in_cart == 'no' %}
+                                <button class="button-all sample_btn sample_btn_cart ml-auto" {% unless product.available %}disabled{% endunless %}>
+                                    <span class="price_fix">{{ current_variant.price | money }}</span> &nbsp;|&nbsp;
+                                    {% if product.available %}
+                                        {{ 'products.product.add_to_cart' | t }}
+                                    {% else %}
+                                        {{ 'products.product.sold_out' | t }}
+                                    {% endif %}
+                                </button>
+                                <a class="button-all sample_btn sample_btn_view_cart ml-auto"  href="\cart">{{ 'product_page.general.cart_btn_title' | t }}</a>
+                            {% else %}
+                                <a class="button-all sample_btn ml-auto"  href="\cart">{{ 'product_page.general.cart_btn_title' | t }}</a>
+                            {% endif %}
+                        {% else %}
+                            <button class="button-all add-cart ml-auto" {% unless product.available %}disabled{% endunless %}>
+                                <span class="price_fix">{{ current_variant.price | money }}</span> &nbsp;|&nbsp;
+                                {% if product.available %}
+                                    {{ 'products.product.add_to_cart' | t }}
+                                {% else %}
+                                    {{ 'products.product.sold_out' | t }}
+                                {% endif %}
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<section class="pages_section pt-0">
+       <div class="container">
+            <div class="pages_section_start">
+            {% if section.settings.title != blank %}
+                <h3 class="primary_color mb-5">{{ section.settings.title }}</h3>
+            {% endif %}
+            <ul class="p-0 m-0">
+                {% for block in section.blocks %}
+                    <li>
+                    <div class="mb-md-5">
+                        {% if block.settings.title != blank %}
+                            <h4 class="richtext_block_title block_title close_div">{{ block.settings.title }}</h4>
+                        {% endif %}
+                        {% if block.settings.text != blank %}
+                        <div class="richtext block_richtext mt-3 mt-md-0">
+                            {{ block.settings.text }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            </div>
+       </div>
+ </section>
+     
+     
+ {% schema %}
+   {
+     "name": "Richtext Block",
+     "class": "section_start",
+     "settings": [
+       {
+           "type":"text",
+           "id":"title",
+           "label":"Title"
+       }
+     ],
+     "blocks": [
+       {
+           "type":"liability",
+           "name":"Liability",
+           "settings": [
+               {
+                   "type":"text",
+                   "id":"title",
+                   "label":"Title"
+               },
+               {
+                   "type":"richtext",
+                   "id":"text",
+                   "label":"Text"
+               }
+            ]
+       }
+     ]
+   }
+ {% endschema %}
+ 

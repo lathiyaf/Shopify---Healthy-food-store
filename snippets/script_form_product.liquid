@@ -1,0 +1,81 @@
+
+<!-- External Js for Price Update and product -->
+<script>
+  $( window ).on("load", function() {
+    $('.content--1 input').prop('checked', true);
+  });
+  $('input:radio[class="product_variant_option"]').change(function() {
+    var price_update = $(this).attr('data-price');
+    var title_update = $(this).attr('data-value');
+    var variant_id = $(this).attr('data-vid');
+    var isSelling = $(this).attr("data-cart-selling-plan");
+    var parents = $(this).parents('form');
+    var ProdID = $(parents).find('.Product_Id');
+    var SellingID = $(parents).find('.Selling_Id');
+    $(parents).find('.add-price').html(price_update);
+    $(parents).find('#mob_title').text(title_update);
+    $(ProdID).val(variant_id);
+    // $(formBtn).attr("data-cart-add",variant_id);
+    if(isSelling){
+        $(SellingID).val(isSelling);
+    }else{
+        $(SellingID).removeAttr("value");
+    }
+});
+
+</script>
+
+{% comment %}
+<!-- variant callback -->
+<script>
+  var selectCallback = function(variant, selector) {
+        {% if product.variants.size == 1 or product.variants.first.title contains 'Default' %}
+          $('.selector-wrapper').hide();
+        {% endif %}
+
+      $('.price-update').text(Shopify.formatMoney(variant.price, "{{ shop.money_format }}"));  
+      // console.log(Shopify.formatMoney(variant.price, "{{ shop.money_format }}"));
+  };
+  jQuery(function($) {
+    new Shopify.OptionSelectors("product-select", { 
+      product: {{ product | json }},
+      history: true,
+      onVariantSelected: selectCallback
+    });
+  });
+</script>
+{% endcomment %}
+
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>
+
+<script type="text/javascript">
+	var _learnq = _learnq || [];
+	$(".add-cart").on('click',function (){
+ 		_learnq.push(['track', 'Added to Cart', item]);
+	});
+</script>

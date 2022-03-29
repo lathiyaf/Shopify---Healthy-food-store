@@ -1,0 +1,22 @@
+<section class="customer-reviews">
+    <div class="container">
+        {% if section.settings.title_txt != blank %}
+        <div class="title_div text-center mb-5">
+            <h3>{{ section.settings.title_txt }}</h3>
+        </div>
+        {% endif %}
+        <div id="stamped-reviews-widget" data-widget-type="full-page" data-take="30" data-limit-words="150" data-min-rating="4" data-fill-empty="true" data-with-photos="false"></div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Customers Reviews",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title_txt",
+            "label": "Title"
+        }
+	]
+  }
+{% endschema %}

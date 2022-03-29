@@ -1,0 +1,100 @@
+<section class="product-faqs">
+    <div class="container">
+        <div class="title_div text-center mb-5">
+            {% if section.settings.title != blank %}
+                <h3>{{ section.settings.title }}</h3>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="content_div">
+                    <div class="accordion" id="product-faq">
+                        {% for block in section.blocks %}
+                            {% if block.settings.faq_side == 'Left' %}
+                                <div class="card">
+                                    <div class="card-header" id="faq--{{ forloop.index }}">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#faq-collapse--{{ forloop.index }}"><i class="fa fa-plus"></i>{{ block.settings.faq_title }}</button>                                  
+                                    </div>
+                                    <div id="faq-collapse--{{ forloop.index }}" class="collapse" aria-labelledby="faq--{{ forloop.index }}" data-parent="#product-faq">
+                                        <div class="card-body">
+                                            {{ block.settings.faq_info }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="content_div">
+                    <div class="accordion" id="product-faq">
+                        {% for block in section.blocks %}
+                            {% if block.settings.faq_side == 'Right' %}
+                                <div class="card">
+                                    <div class="card-header" id="faq--{{ forloop.index }}">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#faq-collapse--{{ forloop.index }}"><i class="fa fa-plus"></i>{{ block.settings.faq_title }}</button>                                  
+                                    </div>
+                                    <div id="faq-collapse--{{ forloop.index }}" class="collapse" aria-labelledby="faq--{{ forloop.index }}" data-parent="#product-faq">
+                                        <div class="card-body">
+                                            {{ block.settings.faq_info }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Product FAQs",
+	"settings": [
+  	  {
+        "type":"header",
+        "content":"Title"
+      },
+      {
+        "type":"text",
+        "id":"title",
+        "label":"Title"
+      }
+    ],
+	"blocks": [
+	  {
+        "type":"faqs",
+        "name":"FAQs",
+        "settings": [
+            {
+                "type":"text",
+                "id":"faq_title",
+                "label":"FAQs title"
+            },
+            {
+                "type":"richtext",
+                "id":"faq_info",
+                "label":"FAQs info"
+            },
+            {
+                "type": "select",
+                "id": "faq_side",
+                "label": "FAQ side",
+                "options": [
+                    {
+                        "value": "Left",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "Right",
+                        "label": "Right"
+                    }
+                ]
+            }
+        ]
+      }
+	]
+}
+{% endschema %}

@@ -1,0 +1,27 @@
+<div class="pages_section">
+      <div class="container">
+        <div class="page_content_start">
+          {% if section.settings.richtext != blank %}
+          <div class="richtext">
+              {{ section.settings.richtext }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+ </div>
+ {% schema %}
+   {
+     "name": "richtext info",
+     "settings": [
+       {
+           "type":"header",
+           "content":"Richtext info"
+       },
+       {
+           "type":"richtext",
+           "id":"richtext",
+           "label":"Text"
+       }
+     ]
+   }
+ {% endschema %}

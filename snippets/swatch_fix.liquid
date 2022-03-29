@@ -1,0 +1,72 @@
+{% comment %}
+  Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
+{% endcomment %}
+
+{% assign file_extension = 'png' %}
+
+{% if swatch == blank %}
+<div class="swatch error">
+  <p>You must include the snippet swatch.liquid with the name of a product option.</p> 
+  <p>Use: <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+  <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+</div>
+{% else %}
+
+{% assign found_option = false %}
+{% assign is_color = false %}
+{% assign option_index = 0 %}
+
+{% for option in product.options limit:2 %}
+  {% if option == swatch %}
+    {% assign found_option = true %}
+    {% assign option_index = forloop.index0 %}
+    <style>
+      label[for="product-select-option-{{ option_index }}"] { display: none; }
+      #product-select-option-{{ option_index }} { display: none; }
+      #product-select-option-{{ option_index }} + .custom-style-select-box { display: none !important; }
+    </style>
+    <script>$(window).load(function() { $('.selector-wrapper:eq({{ option_index }})').hide(); });</script>
+    {% assign downcased_option = swatch | downcase %}
+    {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+      {% assign is_color = true %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% unless found_option %}
+<div class="swatch error">
+  <p>You included the snippet swatch.liquid with the name of a product option — <code>'{{ swatch }}'</code> — that does not belong to your product.</p>
+  <p>Use <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+  <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+  <p><strong>This is case-sensitive!</strong> Do not put in <code>'color'</code> if your product option name is <code>'Color'</code>.</p>
+</div>
+{% else %}
+<select class=" fix_product_selector adfds swatch clearfix {{ swatch }}" data-option-index="{{ option_index }}">
+  {% assign values = '' %}
+  {% for variant in product.variants %}
+    {% assign value = variant.options[option_index] %}
+    {% unless values contains value %}
+      {% assign values = values | join: ',' %}
+      {% assign values = values | append: ',' | append: value %} 
+      {% assign values = values | split: ',' %}
+      <option value="{{ variant.id }}" class="index-{{ forloop.index }}" id="swatch-{{ option_index }}-{{ value | handle }}" data-money="{{ variant.price | money }}">{{ value | escape }}</option>
+    {% endunless %}
+  {% endfor %}
+  {% for subscription_products in product.metafields.accentuate.subscription_product %}
+  {% assign subscription_product = all_products[subscription_products] %}
+  {%- liquid
+    assign current_variant = subscription_product.selected_or_first_available_variant | default: subscription_product.variants.first
+    assign current_selling_plan_allocation = current_variant.selected_selling_plan_allocation
+   
+    if current_selling_plan_allocation == nil and current_variant.requires_selling_plan
+     assign current_selling_plan_allocation = current_variant.selling_plan_allocations | first
+    endif
+   
+    assign offer = current_selling_plan_allocation | default: current_variant
+   -%}
+    <option data-cart-selling-plan="{{ current_selling_plan_allocation.selling_plan.id }}" value="{{ subscription_product.first_available_variant.id }}" data-money="{{ subscription_product.first_available_variant.price | money }}">{{ subscription_product.title }}</option>
+  {% endfor %}
+</select>
+{% endunless %}
+
+{% endif %}

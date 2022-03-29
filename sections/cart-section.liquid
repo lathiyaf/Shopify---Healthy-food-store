@@ -1,0 +1,155 @@
+<section class="cart-section position-relative pt-0">
+  <div class="banner-div pt-5 m-auto">
+    <div class="container">
+      {% if cart.item_count > 0 %}
+      <form action="/cart" method="post" novalidate>
+        <div class="row pb-5 btn-shop">
+          <div class="col-12 p-0">
+            <h3 class="text-center mb-3">{{ 'cart.general.title' | t }}</h3>
+            <a href="{{ routes.all_products_collection_url }}" class="orange-text text-center d-block">
+              {{ 'cart.general.continue_shopping' | t }}
+            </a>
+
+          </div>
+        </div>
+        <div class="row cart-heading">
+          <div class="col-md-5 col-4 product-head">
+            <p class="netto_ot">{{ 'cart.label.product' | t }}</p>
+          </div>
+          <div class="col-md-2 col-4 price-head">
+            <p class="netto_ot">{{ 'cart.label.price' | t }}</p>
+          </div>
+          <div class="col-md-3 col-4 qty-head">
+            <p class="netto_ot">{{ 'cart.label.quantity' | t }}</p>
+          </div>
+          <div class="col-md-2 col-4 total-head">
+            <p class="netto_ot">{{ 'cart.label.total' | t }}</p>
+          </div>
+        </div>
+        {% for item in cart.items %}
+        <div class="row">
+          <div class="col-12 cart-items ">
+            <div class="col-xl-5 col-lg-5 col-md-5 col-12 cart-product-div pl-0">
+              <div class="product-image-div">                          
+                {% if item.image != blank %}
+                <a href="{{ item.url | within: collections.all }}">
+                  {{ item | img_url: 'original' | img_tag: item.title }}
+                </a>
+                {% endif %}
+              </div>
+              <div class="product-text-div">
+                <h5 class="pro-name"><a href="{{ item.url }}">{{ item.product.title }}</a></h5>
+                {%- assign variant_options = 'template ' | split: ' ' -%}
+                {%- if item.product.has_only_default_variant != true -%}
+                {%- assign variant_options = item.options_with_values -%}
+                {%- endif -%}
+                {%- assign property_size = item.properties | size -%}
+
+                <ul class="product-details{% if item.product.has_only_default_variant and property_size == 0 and item.selling_plan_allocation == nil %} hide{% endif %}" data-cart-item-details aria-label="{{ 'cart.label.product_details' | t }}">
+                  {%- for option in variant_options -%}
+                  <li class="product-details__item product-details__item--variant-option{% if item.product.has_only_default_variant %} hide{% endif %}" data-cart-item-option>{{ option.name }}: {{ option.value }}</li>
+                  {%- endfor -%}
+
+                </ul>
+                <p class="plan_name" data-cart-item-selling-plan-name>
+                  {{ item.selling_plan_allocation.selling_plan.name }}
+                </p>
+                <a class="remove-pro"
+                   href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
+                  <small>{{ 'cart.general.remove' | t }}</small>
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2  col-4 cart-price-div">
+              <p class="as-price-item money" data-id="{{ item.key }}" data-variant="{{ item.id }}" data-key="itemOriginalPrice">{{ item.original_price | money }}</p>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-3  col-4 cart-main-div">
+              {% if item.product.handle == "sample" %}
+              <input type="hidden" name="updates[]" id="Updates_{{ item.key }}" class="cart__quantity" value="1" min="0" aria-label="{{ 'cart.label.quantity' | t }}">
+              {% else %}
+              <div class="cart-qty-div" data-qtyContainer>
+                <button class="minus-qty minus-btn qty-btns-cart qty-btn qty-btns" data-direction="-1">-</button>
+                <input class="quntity-input qty-input text-center" type="text" name="updates[]"
+                       id="updates_{{ item.key }}" data-qty readonly value="{{ item.quantity }}">
+                <button class="plus-qty plus-btn qty-btns-cart qty-btn qty-btns" data-direction="1">+</button>
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-4 cart-total-div">
+              <p class="as-total-line-item money" data-id="{{ item.key }}" data-variant="{{ item.id }}" data-key="itemLinePrice">{{ item.line_price | money }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="col-12 p-0">
+          <div class="row align-items-center my-4">
+            <div
+                 class="col-xl-5 col-lg-3 col-md-12 cart-subtotal-div order-xl-2 order-lg-2 order-1 mb-xl-0 mb-lg-0 mb-3 ml-xl-auto ml-lg-auto">
+              <p class="mb-0"><b class="text-black">{{ 'cart.general.subtotal' | t }} :</b>
+                &nbsp;<span class="as-original-price money">{{ cart.total_price | money }}</span><span class="as-summary-line-discount-value money" style="margin-left: 5px;"></span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div
+                 class="col-xl-9 col-lg-9 col-md-12 btn-checkout-div my-3 order-xl-1 order-lg-1 order-2 text-xl-right text-lg-right text-md-right text-center ml-xl-auto ml-lg-auto">
+              <button type="submit" class="btn-outline d-inline-block" name="update">Update</button>
+              <button type="submit" name="checkout"
+                      class="button-all d-inline-block ml-3">{{ 'cart.general.checkout' | t }}</button>
+            </div>
+            <div class="col-12 text-right">
+              {%- if additional_checkout_buttons -%}
+              <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </form>
+      {% else %}
+      <div class="row py-5">
+        <div class="col-12 text-center pt-2">
+          <div class="cart-head mb-5">
+            <h3 class="empty-line">{{ 'cart.general.empty' | t }}</h3>
+          </div>
+        </div>
+        <div class="col-12 text-center">
+          <div class="btn-checkout-div text-center">
+            <a class="button-all m-auto" href="{{ shop.url }}">{{ 'cart.general.continue_shopping' | t }}</a>
+          </div>
+          <div class="payment-option pb-2">
+            <p class="text-center">{{ 'cart.general.cookies_required' | t }}</p>
+          </div>
+        </div>
+
+      </div>
+      {% endif %}
+      {% if section.settings.richtext != blank %}
+      <div class="cart_note text-right richtext">
+        {{ section.settings.richtext }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="down_light_animated_wave"></div>
+</section>
+<style>
+  .richtext p {
+    margin-bottom: 0;
+  }
+  
+  span.money {
+    display: initial;
+  }
+</style>
+{% schema %}
+{
+"name": "Cart Page",
+"settings": [
+{
+"type": "richtext",
+"id": "richtext",
+"label": "Textarea"
+}
+]
+}
+{% endschema %}

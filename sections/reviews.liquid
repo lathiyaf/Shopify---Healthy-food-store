@@ -1,0 +1,52 @@
+<section class="reviews">
+    {% if section.settings.title_txt != blank %}
+    <div class="title_div mb-5 text-center">
+        {% if section.settings.subtitle != blank %}
+            <h5>{{ section.settings.subtitle }}</h5>
+        {% endif %}
+        <h3>{{ section.settings.title_txt }}</h3>
+    </div>
+    {% endif %}
+    {% comment %}
+    <div id="looxReviews" data-product-id="{{product.id}}" class="loox-reviews-default">{{ product.metafields.loox.reviews }}</div>
+    {% endcomment %}
+    <div id="stamped-main-widget" 
+        data-widget-style="standard"
+        data-product-id="{{ product.id }}" 
+        data-name="{{ product.title | escape }}" 
+        data-url="{{ shop.url }}{{ product.url }}" 
+        data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" 
+        data-description="{{ product.description | escape }}" 
+        data-product-sku="{{product.handle}}"
+        data-product-type="{{product.type}}"> 
+        {{ product.metafields.stamped.reviews }} 
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Reviews",
+	"class": "section_start",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title_txt",
+            "label": "Title"
+        },
+        {
+            "type": "textarea",
+            "id": "subtitle",
+            "label": "Subtitle"
+        }
+	],
+	"presets": [
+    {
+      "name": {
+        "en": "Reviews"
+      },
+      "category": {
+          "en": "Home page section"
+      }
+	}
+  ]
+  }
+{% endschema %}

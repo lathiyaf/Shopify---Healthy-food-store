@@ -1,0 +1,73 @@
+{% if section.settings.enable_sec %}
+<section class="richtext-with-button">
+    <div class="container main_div_con">
+        <div class="col-md-10 py-5 m-auto text-center ">
+            {% if section.settings.title != blank %}
+                <h3>{{ section.settings.title }}</h3>
+            {% endif %}
+            {% if section.settings.richtext != blank %}
+            <div class="richtext">
+                {{ section.settings.richtext }}
+            </div>
+            {% endif %}
+            {% if section.settings.btn_url != blank %}
+                <a class="button-all mt-4 mt-md-4 mx-auto shadow-none" href="{{ section.settings.btn_url }}">{{ section.settings.btn_label }}</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<style>
+    .main_div_con{
+        background:{{ section.settings.bg_color }};
+        
+    }
+    @media (max-width:767px){
+        .main_div_con{
+            width:calc( 100% - 30px ) !important;
+            margin: auto;
+        }
+    }
+</style>
+{% endif %}
+{% schema %}
+  {
+    "name": "Richtext with button",
+	"class": "section_start",
+    "settings": [
+      {
+        "type":"checkbox",
+        "id":"enable_sec",
+        "label": "Enable Section?"
+      },
+      {
+          "type":"header",
+          "content":"richtext"
+      },
+      {
+          "type":"color",
+          "id":"bg_color",
+          "label":"Background color"
+      },
+      {
+          "type":"text",
+          "id":"title",
+          "label":"Title"
+      },
+	  {
+          "type":"richtext",
+          "id":"richtext",
+          "label":"Text"
+      },
+	  {
+          "type":"text",
+          "id":"btn_label",
+          "label":"Button label"
+      },
+      {
+          "type":"url",
+          "id":"btn_url",
+          "label":"Button Link"
+      }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,55 @@
+<nav class="main-header">
+    <div class="container-fluid desktop-menu">
+        <div class="row align-items-center ">
+            <div class="col-xl-3 col-lg-3  col-8 logo_div">
+                {% if section.settings.logo_img != blank %}
+                    <a class="logo_img" href="{{ shop.url }}"><img class="lazyload" data-src="{{ section.settings.logo_img | img_url: 'master' }}" width="250" height="auto" alt="{{ shop.name }} Logo"></a>
+                {% endif %}
+            </div>
+            <div class="col-xl-9  nav_div text-right d-xl-block d-none">
+                <ul class="nav_ul d-inline-block" id="AccessibleNav" role="navigation">
+                    {% for link in linklists[section.settings.main_linklist].links %}
+                        <li class=""><a class="" href="{{ link.url }}">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul>
+                <div class="cart_div_icon d-xl-inline-block d-none ml-3">
+                    <a href="/cart" class="c-header__link c-header__link--cart js-cartCanvas d-block">
+                        {% include 'cart-icon' %}
+                        <div id="CartCount" class="site-header__cart-count critical-hidden" data-cart-count-bubble="">
+                            <span>{{ cart.item_count }}</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-4 cart_div text-right pl-0 ml-auto d-xl-none d-block">
+                <div class="menu_icon ">
+                    {% include 'menu-icon' %}
+                </div>
+                <div class="close_icon ">
+                    {% include 'icon-close' %}
+                </div>
+                <div class="shop_icon ml-2">
+                    <a href="/">{% include 'icon-shop' %}</a>
+                </div>
+                <div class="cart_div_icon d-inline-block ml-3">
+                    <a href="/cart" data-target-element="offcanvas-right" data-offcanvas-src="#offcanvas-right" class="c-header__link c-header__link--cart js-cartCanvas d-block">
+                     {% include 'cart-icon' %}
+                     <div id="CartCount" class="site-header__cart-count critical-hidden" data-cart-count-bubble="">
+                         <span>{{ cart.item_count }}</span>
+                     </div>
+                    </a>
+                 </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="mobile_menu" id="mobile_menu">
+    <ul class="nav_ul text-center">
+        {% for link in linklists[section.settings.main_linklist].links %}
+            <li class=""><a class="" href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+            {% if settings.menu_btn_title != blank %}
+            <li class="py-3"><a class="button-all w-100 text-center shadow-none" href="{{ settings.menu_btn_link }}">{{ settings.menu_btn_title }}</a></li>
+            {% endif %}
+    </ul>
+</div>

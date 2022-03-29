@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'Netto OT';
+    src: url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/NettoOT-Bold.eot?v=1629794791');
+    src: url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/NettoOT-Bold.eot?v=1629794791?#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/NettoOT-Bold.woff2?v=1629794791') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/NettoOT-Bold.woff?v=1629794791') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/NettoOT-Bold.ttf?v=1629794791') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/OpenSans-Regular.eot?v=1632974261');
+    src: url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/OpenSans-Regular.woff2?v=1632974261') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/OpenSans-Regular.woff?v=1632974261') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0065/6287/3395/files/OpenSans-Regular.ttf?v=1632974261') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body{
+	margin:0;
+  	padding:0;
+}
+.content, header{
+	display:none;
+}
+.container{
+	width:70%;
+  	margin:auto;
+  	text-align:center;
+  	font-family: 'Open Sans', sans-serif;
+  	padding:50px 15px;
+    @media (max-width:767px){
+    	width:95%;
+    }
+}
+
+.title_div{
+    a{
+    	display:block;
+        img{
+        	max-width:80%;
+        }
+    }
+    h1{
+		font-family: 'Netto OT';
+      	margin-top:30px;
+      	margin-bottom:5px;
+      	font-size:40px;
+        @media (max-width:767px){
+        	font-size:30px;
+        }
+    }
+    h2{
+    	font-size:18px;
+      	margin:0;
+        span{
+        	color:#d97043;
+          	font-family: 'Netto OT';
+          	font-size:23px;
+          	padding-left:5px;
+          	vertical-align:text-top;
+        }
+    }
+}
+
+.gift_img{
+  margin:50px 0;
+  img{
+  	max-width:500px;
+    width:100%;
+  }
+}
+
+.code_div{
+  .giftcard__code{
+  	 display:inline-block;
+     padding:10px 30px;
+     background:#f9f3e5;
+     font-size:25px;
+     font-weight:600;
+     border:1px dashed #040404;
+     border-radius:5px;
+    @media (max-width:480px){
+	  padding:10px 20px;
+      font-size:20px;
+    }
+  }
+  .copy_button{
+  	background:none;
+    color:#d97043;
+    font-size:22px;
+    margin-left:15px;
+    border:none;
+    cursor:pointer;
+    @media (max-width:367px){
+    	margin-top:10px;
+    }
+    &:hover{
+    	color:#040404;
+    }
+  }
+}
+
+.button{
+	background: #d97043;
+    cursor: pointer;
+    border: 2px solid #d97043;
+    border-radius: 5px;
+    padding: 10px 15px;
+    min-width: 170px;
+    text-align: center;
+    line-height: 26px;
+    font-size: 18px;
+    color: #fff;
+    outline: 0;
+    display: inline-block;
+    width: max-content;
+    font-family: 'Netto OT';
+    transition: all .3s;
+    text-decoration:none;
+    text-align:center;
+  	margin-top:20px;
+  	
+}

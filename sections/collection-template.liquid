@@ -1,0 +1,103 @@
+{% if section.settings.enable_sec %}
+    <section class="collection-template">
+        <div class="container">
+            <div class="product_row">
+                {% for product in collection.products %}
+                <div class="row mx-0 align-items-center all_product {% if forloop.index > 1 %}product_main{% endif %}">
+                    <div class="col-lg-7 position-relative mb-lg-0 mb-5">
+                        <div class="bg-image">
+                            <img src="https://cdn.shopify.com/s/files/1/0065/6287/3395/files/product_bg_shape.svg?v=1616748405" alt="bg Image">
+                        </div>
+                        <div class="img_div">
+                            {%- assign preview_image = product.featured_image  -%}
+                            {%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                            {% unless preview_image == blank %}
+                                {% include 'image-style', image: preview_image, height: max_height %}
+                            {% endunless %}
+                            <img id="{{ img_id }}"
+                            class="lazyautosizes lazyload js aos-init aos-animate"
+                            alt="{{ preview_image.alt }}"
+                            data-src="{{ img_url }}"
+                            data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                            data-aspectratio="{{ preview_image.aspect_ratio }}"
+                            data-sizes="auto"
+                            data-image  data-index="{{ forloop.index }}" data-aos="zoom-out">
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="content_div">
+                            <div class="title_prod text-lg-left text-center mb-4">
+                                {% if product.title != blank %}
+                                <h3 title="{{ product.title }}">{{ product.title }}</h3>
+                                {% endif %}
+                                {% if section.settings.button_label != blank %}
+                                    <a class="button-all my-4 mx-lg-0 mx-auto w-full-mob d-md-block d-none" href="{{product.url}}">{{ section.settings.button_label }}</a>
+                                {% endif %}
+                            </div>
+                            {% if product.description != blank %}
+                                <div class="collection_product_description text-lg-left text-center">
+                                    <p>{{ product.description | strip_html | truncate: 120 }}</p>
+                                </div>
+                            {% endif %}
+                            <div class="icon_main_div d-lg-block d-none">
+                                <div class="row m-0">
+                                    {% if product.metafields.my_fields.product_features_icon_1 != blank %}
+                                    <div class="col-lg-4">
+                                        <div class="icon_div text-center">
+                                            <div class="icon_img">
+                                                <img src="{{  product.metafields.my_fields.product_features_icon_1  }}" alt>
+                                            </div>
+                                            <p class="netto_ot display-4">{{ product.metafields.my_fields.product_features_title_1 }}</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if product.metafields.my_fields.product_features_icon_2 != blank %}
+                                    <div class="col-lg-4">
+                                        <div class="icon_div text-center">
+                                            <div class="icon_img">
+                                                <img src="{{  product.metafields.my_fields.product_features_icon_2  }}" alt>
+                                            </div>
+                                            <p class="netto_ot display-4">{{ product.metafields.my_fields.product_features_title_2 }}</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if product.metafields.my_fields.product_features_icon_3 != blank %}
+                                        <div class="col-lg-4">
+                                            <div class="icon_div text-center">
+                                                <div class="icon_img">
+                                                    <img src="{{  product.metafields.my_fields.product_features_icon_3  }}" alt>
+                                                </div>
+                                                <p class="netto_ot display-4">{{ product.metafields.my_fields.product_features_title_3 }}</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if section.settings.button_label != blank %}
+                                <a class="button-all my-4 mx-lg-0 mx-auto w-full-mob d-md-none d-block" href="{{product.url}}">{{ section.settings.button_label }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}
+{% schema %}
+    {
+        "name":"Collection Template",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enable_sec",
+                "label": "Enable Section?"
+            },
+            {
+                "type":"text",
+                "id":"button_label",
+                "label":"Product button label"
+            }
+        ]
+    }
+{% endschema %}

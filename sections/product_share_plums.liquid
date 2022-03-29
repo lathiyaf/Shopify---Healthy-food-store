@@ -1,0 +1,37 @@
+{% if product.metafields.my_fields.product_share_plums_title != blank %}
+<section class="product_share_plums">
+    <div class="container">
+        {% if product.metafields.my_fields.product_share_plums_title != blank %}
+        <div class="title_div mb-5 text-center">
+            <h3>{{ product.metafields.my_fields.product_share_plums_title }}</h3>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="share-div div_man">
+                    {% if  product.metafields.my_fields.share_plums_info_title_1 != blank %}
+                        <h4>{{ product.metafields.my_fields.share_plums_info_title_1 }}</h4>
+                    {% endif %}
+                    {% if product.metafields.my_fields.share_plums_info_1 != blank %}
+                    <div class="info_div">
+                        {{ product.metafields.my_fields.share_plums_info_1 }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-5">
+                <div class="other-div div_man">
+                    {% if  product.metafields.my_fields.share_plums_info_title_2 != blank %}
+                        <h4>{{ product.metafields.my_fields.share_plums_info_title_2 }}</h4>
+                    {% endif %}
+                    {% if product.metafields.my_fields.share_plums_info_2 != blank %}
+                    <div class="info_div">
+                        {{ product.metafields.my_fields.share_plums_info_2 }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}

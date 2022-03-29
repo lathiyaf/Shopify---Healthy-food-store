@@ -1,0 +1,144 @@
+<!-- {% assign current_variant = product.selected_variant %} -->
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant | default: product.variants.first
+  assign current_selling_plan_allocation = current_variant.selected_selling_plan_allocation
+ 
+  if current_selling_plan_allocation == nil and current_variant.requires_selling_plan
+   assign current_selling_plan_allocation = current_variant.selling_plan_allocations | first
+  endif
+ 
+  assign offer = current_selling_plan_allocation | default: current_variant
+ -%}
+    <form action="/cart/add" method="post"  enctype="multipart/form-data" class="product_cart_form product_cart_normal_form">
+                    <input type="hidden" class="Product_Id" name="id" value={{ current_variant.id }}>
+                    <input type="hidden" class="Selling_Id" name="selling_plan" value="{{ current_selling_plan_allocation.selling_plan.id | default: '' }}">
+                  <div class="subscription_div mt-lg-3 mt-0">
+                    {% if section.settings.sub_txt != blank %}
+                      <p class="mb-2 display-4 title_p">{{ section.settings.sub_txt }}:</p>
+                    {% endif %}
+                    {% if section.settings.sub_mobile_title != bank %}
+                    <div class="subscription_mobile d-lg-none d-block">
+                        <p class="fw-600 sub_select" id="mob_title">{{ product.first_available_variant.title }}</p>
+                    </div>
+                    {% endif %}
+                    <div class="subscription_desktop">
+                        {% if product.available and product.variants.size > 1 %}
+                          {% render 'swatch' for product.options as swatch %}
+                        {% endif %}
+                        {% for subscription_products in product.metafields.accentuate.subscription_product %}
+                        {% assign subscription_product = all_products[subscription_products] %}
+                        {%- liquid
+                          assign sub_current_variant = subscription_product.selected_or_first_available_variant | default: subscription_product.variants.first
+                          assign sub_current_selling_plan_allocation = sub_current_variant.selected_selling_plan_allocation
+                         
+                          if sub_current_selling_plan_allocation == nil and sub_current_variant.requires_selling_plan
+                           assign sub_current_selling_plan_allocation = sub_current_variant.selling_plan_allocations | first
+                          endif
+                         
+                          assign offer = sub_current_selling_plan_allocation | default: sub_current_variant
+                         -%}
+                          <div class="contant swatch-element sub_product mb-0" name="id">
+                            <input class="product_variant_option" data-cart-selling-plan="{{ sub_current_selling_plan_allocation.selling_plan.id }}" data-value="{{ subscription_product.title }}" type="radio" id="sub_product"  data-price="{{ sub_current_variant.price | money }}" data-vid="{{ sub_current_variant.id }}" value="{{ sub_current_variant.id }}" name="option-0">
+                            <label class="swatch_label" for="sub_product">
+                              <div class="title_line">
+                                <span class="variant_title">{{ subscription_product.title }}</span>
+                                <span class="simple-line d-block">{{ subscription_product.metafields.my_fields.subscription_product_subtitle }}</span>
+                                {% if subscription_product.metafields.accentuate.subscription_product_label != blank %}
+                                  <div class="title_pan_label">
+                                    <p class="mb-0">{{ subscription_product.metafields.accentuate.subscription_product_label }}</p>
+                                  </div>
+                                {% endif %}
+                              </div>
+                              <div class="check_div"></div>
+                              <span class="float-right right_text">{{ subscription_product.variants.first.price | money }}</span>
+                            </label>
+                            {% if section.settings.icon_1 != blank %}
+                            <div class="icon_div">
+                              <div class="main_icon_box">
+                                {% if section.settings.icon_1 != blank %}
+                                  <div class="icon_box"> 
+                                    {{ section.settings.icon_1 }}
+                                  </div>
+                                  {% endif %}
+                                  {% if section.settings.icon_1_txt != blank %}
+                                  <div class="text_div">
+                                      {{ section.settings.icon_1_txt }}
+                                  </div>
+                                  {% endif %}
+                              </div>
+                              <div class="main_icon_box border-right-0 border-bottom-0">
+                                  {% if section.settings.icon_2 != blank %}
+                                  <div class="icon_box">
+                                    {{ section.settings.icon_2 }}
+                                  </div>
+                                  {% endif %}
+                                  {% if section.settings.icon_2_txt != blank %}
+                                  <div class="text_div">
+                                    {{ section.settings.icon_2_txt }}
+                                  </div>
+                                  {% endif %}
+                              </div>
+                            </div>
+                            {% endif %}
+                          </div>
+                      {% endfor %}
+                        
+                    </div>
+                  </div>
+                  {% comment %}
+                  <select name="id" id="product-select" class="product-single__variants" data-productid="{{product.id}}">
+                    {% for variant in product.variants %}
+                      {% if variant.available %}
+                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} {% assign featured_image = product.images.first | default: product.featured_image %} value="{{ variant.id }}">	
+                        {{ variant.title }}
+                      </option>
+                      {% else %}
+                        <option disabled="disabled">
+                          {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                        </option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+                  {% endcomment %}
+                 
+                  {% if product.metafields.my_fields.compare_page_title != blank %}
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+                    <div class="option_div "> 
+                          <a class="modal-btn" href="#" data-toggle="modal" data-target=".compareModal">
+                            {{ product.metafields.my_fields.compare_page_title }}
+                          </a>
+                    </div>
+                  </div>
+                  {% endif %}
+                  <div class="btn_div_1">
+                    <div class="product-qty" data-qtyContainer>
+                      {% if section.settings.qty_txt != blank %}
+                        <label class="mb-0">{{section.settings.qty_txt}} :</label>
+                      {% endif %}
+                      <div class="pro-qty-div">
+                        <button class="minus-btn qty-btn qty-btns" data-direction="-1">-</button>
+                          <input class="product_qty quntity-input qty-input text-center" type="text" name="quantity" id="quantity"
+                          data-qty readonly value="1" min="1">
+                          <button class="plus-btn qty-btn qty-btns" data-direction="1">+</button>
+                      </div>
+                    </div>
+                    
+                    <div class="btn_div">
+                      <div class="pro-add-btn col-12 px-0"> 
+                        <button type="submit" class="button-all add-cart w-100"  {% unless product.available %}disabled{% endunless %}>
+                          <span class="add-price">{{ product.first_available_variant.price | money }}</span>&nbsp; | &nbsp;
+                          {% if product.available %}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {% else %}
+                          {{ 'products.product.sold_out' | t }}
+                          {% endif %}
+                        </button>
+                        {% if section.settings.media_title != blank %}
+                          <div class="media_pack_link">
+                            <a class="d-block" target="_blank" href="{{ product.metafields.my_fields.media_pack_link }}">{{ section.settings.media_title }}</a>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+</form>

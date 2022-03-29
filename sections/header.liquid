@@ -1,0 +1,120 @@
+{% assign template_type = section.settings.template_type %}
+{% assign homepage_transparent_header = section.settings.homepage_transparent_header %}
+{% assign logo = settings.main_logo | img_url: '200x' %}
+{% assign logo_light = settings.main_logo_light | img_url: '200x' %}
+{% assign logo_width = settings.logo_max_width %}
+{% if section.settings.topbar_enabled %}
+{% if section.settings.richtext_cookie != blank %}
+<div class="Notice_div cookieWarningClass hidden">
+  <small class="fw-600 text-center">{{ section.settings.richtext_cookie }}</small>
+</div>
+{% endif %}
+<div class="topbar d-block" data-top-bar style="background-color: {{ section.settings.topbar_bg_color }}">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6  text-md-left text-center  annucement-bar py-lg-0 py-2">
+        <small class="fw-600 ">{{ section.settings.topbar_text }}</small>
+      </div>
+      <div class="col-md-6 d-md-flex align-items-center justify-content-end d-none annucement-bar-right text-md-right text-center py-lg-0 py-2">
+        <small class="fw-600 announce_column_divider">
+          <a class="js-drawer-open-top" href="/search">{% include 'icon-search' %}</a>
+        </small>
+        <small class="fw-600 announce_column_divider">
+          {% if customer %}
+            <a href="{{ routes.account_url }}">{% include 'icon-account' %}</a>
+          {% else %}
+            <a href="{{ routes.account_login_url }}">{% include 'icon-account' %}</a>
+          {% endif %}
+        </small>
+        <div class="language_menu d-flex align-items-center"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<header class="header {% if homepage_transparent_header %}header-transparent{% endif %} " data-site-header
+  data-section-id="{{ section.id }}" data-transparent-header="{{ homepage_transparent_header }}">
+  {% include 'navbar-default' %}
+</header>
+
+
+{% schema %}
+{
+"name": "Header",
+"settings": [
+{
+  "type": "header",
+  "content": "Logo"
+},
+{
+  "type": "image_picker",
+  "id": "logo_img",
+  "label": "Logo"
+},
+{
+"type": "header",
+"content": "Menu"
+},
+{
+"type": "link_list",
+"id": "main_linklist",
+"label": "Select Menu",
+"default": "main-menu"
+},
+{
+  "type": "header",
+  "content": "Sidebar Menu"
+},
+{
+  "type": "link_list",
+  "id": "sidebar_menu",
+  "label": "Select Menu"
+},
+{
+  "type": "header",
+  "content": "ANNOUNCEMENT BAR"
+},
+{
+  "type": "checkbox",
+  "id": "topbar_enabled",
+  "label": "Show announcement"
+},
+{
+  "type":"color",
+  "id": "topbar_bg_color",
+  "label": "Bar"
+},
+{
+  "type": "header",
+  "content": "ANNOUNCE BAR LEFT TEXT"
+},
+{
+  "type": "text",
+  "id": "topbar_text",
+  "label": "Text"
+},
+{
+  "type": "header",
+  "content": "Language Menu"
+  },
+  {
+  "type": "link_list",
+  "id": "lag_linklist",
+  "label": "Select Menu"
+  },
+  {
+    "type": "header",
+    "content": "Cookie Bar"
+  },
+  {
+    "type": "richtext",
+    "id": "richtext_cookie",
+    "label": "Content"
+  }
+]
+}
+{% endschema %}
+
+
+{% javascript %}
+{% endjavascript %}

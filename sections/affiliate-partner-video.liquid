@@ -1,0 +1,56 @@
+<section class="affiliate-partner-video">
+    <div class="container">
+        <div class="video_div">
+            {%- assign preview_image_1 = section.settings.video_img -%}
+            {%- assign img_url = preview_image_1 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            {% unless preview_image_1 == blank %}
+                {% include 'image-style', image: preview_image_1, height: max_height %}
+            {% endunless %}
+            <img id="{{ img_id }}"
+            class="lazyautosizes lazyload js"
+            alt="{{ preview_image_1.alt }}"
+            data-src="{{ img_url }}"
+            data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+            data-aspectratio="{{ preview_image_1.aspect_ratio }}"
+            data-sizes="auto"
+            data-image  data-index="{{ forloop.index }}">
+            <div class="btn_div" data-toggle="modal" data-target=".bd-example-modal-lg">
+                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M93.2842 25.0104C86.6094 13.4495 75.832 5.17938 62.9371 1.72431C50.0424 -1.73116 36.574 0.0420797 25.0125 6.71727C13.4512 13.3923 5.18144 24.1696 1.72636 37.0645C-1.72871 49.9593 0.0445295 63.428 6.71933 74.989C13.3939 86.5499 24.1717 94.82 37.0664 98.2751C41.3723 99.429 45.7416 99.9997 50.0832 99.9997C58.7432 99.9997 67.2904 97.7284 74.9912 93.2823C86.5521 86.6075 94.8223 75.8302 98.2773 62.9352C101.733 50.0401 99.959 36.5718 93.2842 25.0104ZM93.2496 61.5882C90.1543 73.1401 82.7457 82.7954 72.3883 88.7751C62.0312 94.755 49.9652 96.3433 38.4133 93.2483C26.8611 90.153 17.2061 82.7444 11.2262 72.387C5.24648 62.03 3.65801 49.9638 6.75351 38.4116C9.84902 26.8597 17.2576 17.2048 27.6148 11.2247C34.5143 7.2413 42.1703 5.20673 49.9291 5.20673C53.8178 5.20673 57.7336 5.71806 61.5896 6.75145C73.1416 9.84677 82.7969 17.2554 88.7766 27.6128C94.7564 37.97 96.3451 50.036 93.2496 61.5882Z" fill="#E8BD6E"></path>
+                    <path d="M73.9797 45.2836L41.8457 26.7309C40.1404 25.7463 38.1045 25.7467 36.3992 26.7307C34.6939 27.715 33.6758 29.4785 33.6758 31.4475V68.5529C33.6758 70.5219 34.6938 72.2852 36.3992 73.2697C37.2518 73.7621 38.1867 74.008 39.1221 74.008C40.0576 74.008 40.993 73.7615 41.8455 73.2695L73.9799 54.717C75.685 53.7322 76.7027 51.969 76.7027 50C76.7027 48.0313 75.6848 46.268 73.9797 45.2836ZM71.377 50.2098L39.2428 68.7623C39.2035 68.7852 39.1217 68.8322 39.0014 68.7623C38.8807 68.6926 38.8807 68.5984 38.8807 68.5531V31.4477C38.8807 31.4023 38.8807 31.3082 39.0014 31.2385C39.0486 31.2111 39.0898 31.2018 39.125 31.2018C39.1797 31.2018 39.2191 31.2246 39.2432 31.2385L71.3772 49.7912C71.4164 49.8139 71.4979 49.8609 71.4979 50.0004C71.4979 50.1399 71.416 50.1871 71.377 50.2098Z" fill="#E8BD6E"></path>
+                    <path d="M80.7223 26.2578C74.533 18.2621 65.2289 12.8902 55.1953 11.5193C53.7728 11.3246 52.4592 12.3213 52.2644 13.7457C52.0701 15.1697 53.0668 16.4818 54.4908 16.6765C63.1846 17.8642 71.2453 22.5181 76.6065 29.4439C77.1193 30.1064 77.8887 30.4533 78.6662 30.4533C79.2227 30.4533 79.7834 30.2758 80.2572 29.9086C81.3938 29.0289 81.602 27.3943 80.7223 26.2578Z" fill="#E8BD6E"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal video -->
+<div class="modal fade bd-example-modal-lg video_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <iframe src="{{ section.settings.video_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    </div>
+</div> 
+
+{% schema %}
+{
+    "name": "Ambassador Partner Video",
+    "settings":[
+        {
+            "type": "image_picker",
+            "id": "video_img",
+            "label": "Video  Image"
+        },
+        {
+            "type": "url",
+            "id": "video_url",
+            "label": "Video url"
+        }
+    ]
+}
+{% endschema %}

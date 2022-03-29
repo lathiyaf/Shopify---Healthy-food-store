@@ -1,0 +1,71 @@
+<section class="product-faqs">
+    <div class="container">
+        <div class="title_div text-center mb-5">
+            {% if section.settings.title != blank %}
+                <h3>{{ section.settings.title }}</h3>
+            {% endif %}
+        </div>
+        <div class="accordion" id="product-faq">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="content_div">
+                        {% assign i = 0 %}
+                        {% assign ii = 0 %}
+                        {% assign metafieldSize = product.metafields.faq_question.faq_question.size %}
+                        {% assign metafieldSizeModule = metafieldSize | modulo: 2 %}
+                        {% assign FaqLimit = product.metafields.faq_question.faq_question.size | divided_by: 2 %}
+                        {% if metafieldSizeModule != 0 %}
+                            {% assign FaqLimit = FaqLimit | plus: 1 %}
+                        {% endif %}
+                        {% for FAQs in product.metafields.faq_question.faq_question limit: FaqLimit %}
+                                <div class="card">
+                                    <div class="card-header" id="faq--left-{{ forloop.index }}">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#faq-collapse--left-{{ forloop.index }}"><i class="fa fa-plus"></i>{{ product.metafields.faq_question.faq_question[i] }}</button>                                  
+                                    </div>
+                                    <div id="faq-collapse--left-{{ forloop.index }}" class="collapse" aria-labelledby="faq--left-{{ forloop.index }}" data-parent="#product-faq">
+                                        <div class="card-body">
+                                            {{ product.metafields.faq_answer.faq_answer[ii]}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% assign i = i | plus:1 %}
+                            {% assign ii = ii | plus:1 %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                        {% for FAQs in product.metafields.faq_question.faq_question offset: FaqLimit %}
+                                <div class="card">
+                                    <div class="card-header" id="faq--right-{{ forloop.index }}">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#faq-collapse--right-{{ forloop.index }}"><i class="fa fa-plus"></i>{{ product.metafields.faq_question.faq_question[i] }}</button>                                  
+                                    </div>
+                                    <div id="faq-collapse--right-{{ forloop.index }}" class="collapse" aria-labelledby="faq--right-{{ forloop.index }}" data-parent="#product-faq">
+                                        <div class="card-body">
+                                            {{ product.metafields.faq_answer.faq_answer[ii]}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% assign i = i | plus:1 %}
+                            {% assign ii = ii | plus:1 %}
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Product FAQs",
+	"settings": [
+  	  {
+        "type":"header",
+        "content":"Title"
+      },
+      {
+        "type":"text",
+        "id":"title",
+        "label":"Title"
+      }
+    ]
+}
+{% endschema %}

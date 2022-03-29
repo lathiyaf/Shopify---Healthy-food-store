@@ -1,0 +1,45 @@
+
+
+{% for subscription_products in product.metafields.accentuate.subscription_product %}
+{% assign subscription_product = all_products[subscription_products] %}
+{%- liquid
+    assign current_variant = subscription_product.selected_or_first_available_variant | default: subscription_product.variants.first
+    assign current_selling_plan_allocation = current_variant.selected_selling_plan_allocation
+   
+    if current_selling_plan_allocation == nil and current_variant.requires_selling_plan
+     assign current_selling_plan_allocation = current_variant.selling_plan_allocations | first
+    endif
+   
+    assign offer = current_selling_plan_allocation | default: current_variant
+   -%}
+   
+    <form  action="/cart/add" method="post" id="AddToCartForm-{{ current_variant.id }}" class="product_cart_form form_2_div hide_div" data-cart-submit="data-cart-submit"
+              data-product-id="{{ current_variant.id }}" data-productid="{{subscription_product.id}}" data-product="{{ subscription_product.id}}">
+    <div class="product-qty" data-qtyContainer>
+    {% if section.settings.qty_txt != blank %}
+        <label class="mb-0">{{section.settings.qty_txt}} :</label>
+    {% endif %}
+    <div class="pro-qty-div">
+        <button class="minus-btn qty-btn qty-btns" data-direction="-1">-</button>
+        <input class="quntity-input qty-input product_qty text-center" id="quantity" type="text" name="quantity" 
+        data-qty readonly value="1" min="1">
+        <button class="plus-btn qty-btn qty-btns" data-direction="1">+</button>
+    </div>
+    </div>
+    <div class="btn_div">
+        <button type="submit" name="add" id="AddToCart"  class="button-all add-cart w-100" data-cart-quantity="1" data-cart-selling-plan="{{ current_selling_plan_allocation.selling_plan.id }}" data-cart-add="{{ current_variant.id }}" data-cart-submit>
+            <span class="add-price">{{ current_variant.price | money }}</span>&nbsp; | &nbsp;
+            {% if subscription_product.available %}
+              {{ 'products.product.add_to_cart' | t }}
+            {% else %}
+            {{ 'products.product.sold_out' | t }}
+            {% endif %}
+        </button>
+    {% if section.settings.media_title != blank %}
+        <div class="media_pack_link">
+        <a class="d-block" target="_blank" href="{{ product.metafields.my_fields.media_pack_link }}">{{ section.settings.media_title }}</a>
+        </div>
+    {% endif %}
+    </div>
+</form>
+{% endfor %}

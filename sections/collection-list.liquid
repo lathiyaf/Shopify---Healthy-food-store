@@ -1,0 +1,38 @@
+{%- comment -%}
+This is a required section for the Shopify Theme Store.
+It is available when you add "Collection list" section in the Theme Editor.
+
+Theme Store required settings
+- Heading: title of the collection list section
+- Collection
+{%- endcomment -%}
+<section class="collection-list product-section">
+  <div class="container">
+    <div class="row">
+      {% for collection in collections %}
+      <div class="col-xl-4 col-lg-4 col-md-6 text-center">
+        <div class="product-box">
+          <div class="product-img-box">
+            <a href="{{ collection.url }}"><img src="{{ collection.image | img_url:'original'}}"
+                alt="{{ collection.title }}"></a>
+          </div>
+          <div class="product-content">
+            <a href="{{ collection.url }}">
+              <h5>{{ collection.title }}</h5>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+"name": "collection list",
+  "settings": [
+  
+  ]
+}
+{% endschema %}

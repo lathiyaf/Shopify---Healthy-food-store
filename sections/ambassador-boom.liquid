@@ -1,0 +1,121 @@
+<section class="ambassador-richtext">
+    <div class="up_light_animated_wave"></div>
+    {% if section.settings.image_anim_1 != blank %}
+    <div class="left_anim position-absolute animation_img">
+        <img src="{{ section.settings.image_anim_1 | img_url: '300x' }}" alt="{{ section.settings.image_anim.alt }}">
+    </div>
+    {% endif %}
+    <div class="ambassador-richtext-inner py-5">
+        <div class="container">
+            {% if section.settings.title_txt != blank %}
+            <div class="title_div text-center mb-5">
+                <h3>{{ section.settings.title_txt }}</h3>
+            </div>
+            {% endif %}
+            {% if section.settings.richtext_1 != blank %}
+            <div class="richtext col-12 p-0">
+                {{ section.settings.richtext_1 }}
+            </div>
+            {% endif %}
+            {% if section.settings.richtext_2 != blank %}
+            <div class="richtext bullet_text col-12 p-0">
+                {{ section.settings.richtext_2 }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if section.settings.image_anim_2 != blank %}
+    <div class="right_anim position-absolute animation_img">
+        <img src="{{ section.settings.image_anim_2 | img_url: '300x' }}" alt="{{ section.settings.image_anim.alt }}">
+    </div>
+    {% endif %}
+    <div class="down_light_animated_wave"></div>
+</section>
+<section class="boom-bottom">
+    <div class="container">
+        <div class="col-12">
+            {% if section.settings.title_2 != blank %}
+            <div class="title_div mb-5">
+                <h3>{{ section.settings.title_2 }}</h3>
+            </div>
+            {% endif %}
+            {% if section.settings.richtext_bottom != blank %}
+            <div class="richtext">
+                {{ section.settings.richtext_bottom }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<style>
+    .ambassador-richtext-inner{
+        background:{{ section.settings.bg_color }};
+    }
+</style>
+{% schema %}
+{
+    "name": "Ambassador Boom",
+    "settings":[
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label":"Background Color"
+        },
+        {
+            "type":"textarea",
+            "id": "title_txt",
+            "label": "Title"
+        },
+        {
+            "type": "header",
+            "content": "Richtext"
+        },
+        {
+            "type": "richtext",
+            "id": "richtext_1",
+            "label": "Text"
+        },
+        {
+            "type": "header",
+            "content": "Richtext With Label"
+        },
+        {
+            "type": "richtext",
+            "id": "richtext_2",
+            "label": "Text"
+        },
+        {
+            "type": "header",
+            "content": "Left Animation Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_anim_1",
+            "label": "Image"
+        },
+        {
+            "type": "header",
+            "content": "Right Animation Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "image_anim_2",
+            "label": "Image"
+        },
+        {
+            "type": "header",
+            "content": "Title & Richtext"
+        },
+        {
+            "type": "textarea",
+            "id": "title_2",
+            "label": "Title"
+        },
+        {
+            "type": "richtext",
+            "id": "richtext_bottom",
+            "label": "Text"
+        }
+    ]
+}
+{% endschema %}

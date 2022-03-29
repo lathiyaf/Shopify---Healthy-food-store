@@ -1,0 +1,218 @@
+<div id="stamped-reviews-widget" data-widget-type="site-badge" data-badge-type="minimal" data-title="Bewertungen" data-title-size="9" data-size-stars="12" style="display:inline-block;" data-element-id="1" data-lang="en"><div id="stamped-badge-2" data-rating="5.0">
+</div>
+
+<style>
+    .stamped-style-color-text{
+        font-size:14px !important;
+    }
+    #stamped-badge-3 {
+        height: 150px;
+        margin: auto;
+    }
+
+    .stamped-badge-powered, .stamped-badge-powered a {
+        font-size: 14px;
+        color: #999;
+        text-decoration: none;
+        margin-top: 5px;
+text-align:center;
+    }
+
+    /* Badge Ribbon foreground */
+    .stamped-badge-svg #stamped-badge-ribbon #stamped-badge-ribbon-foreground {
+        /*fill: #3E85FF;*/
+    }
+    /* Badge Ribbon background */
+    .stamped-badge-svg #stamped-badge-ribbon #stamped-badge-ribbon-background {
+        /*fill: #3E85FF;*/
+        opacity: 0.8;
+    }
+
+    /* Badge Inner */
+    .stamped-badge-svg #stamped-badge-inner,
+    .stamped-badge-svg #stamped-badge-inner use[fill] {
+        /*fill: #ffd34d;*/
+    }
+    /* Badge Outer */
+    .stamped-badge-svg #stamped-badge-outer,
+    .stamped-badge-svg #stamped-badge-border {
+        /*fill: #f2ba49;*/
+    }
+
+    #stamped-badge-stars, #stamped-badge-count {
+    }
+
+    /* Folded pieces */
+    .stamped-badge-svg #stamped-badge-ribbon #shades {
+        fill: #000;
+        opacity: 0.5;
+    }
+</style>
+
+
+<script>
+    var StampedSiteBadgeFn = (function (window, document) {
+        function init(data, obj, $) {
+            var height = $(obj).attr('data-height') || 120;
+            var title = $(obj).attr('data-title') || 'VERIFIED REVIEWS';
+            var titleSize = $(obj).attr('data-title-size') || '12';
+
+            var colorOuter = $(obj).attr('data-color-outer');
+            var colorInner = $(obj).attr('data-color-inner');
+            var colorRibbon = $(obj).attr('data-color-ribbon');
+
+            var styleColorText = $(obj).attr('data-color-text');
+            var styleColorStar = $(obj).attr('data-color-stars');
+            var styleSizeStar = $(obj).attr('data-star-size');
+
+            var totalType = $(obj).attr('data-total-type');
+
+            var badgeType = $(obj).attr('data-badge-type') || 'badge';
+
+            var isTotalWidget = obj.data('is-widget-total') == true ? true : false;
+
+            var isHidePowered = obj.data('is-hide-powered') == true ? true : false;
+
+            if (badgeType == 'minimal') {
+                titleSize = titleSize || 14;
+            }
+            // if data empty, hide widget
+            if (data.length <= 0) {
+                //$(obj).hide();
+                //return;
+            } else {
+                //$(obj).show();
+            }
+
+            var totalAll = data.totalAll;
+
+            if (data.totalAllWithNPS > 0 && !totalType) {
+                totalAll = data.totalAllWithNPS;
+            }
+
+            if (isTotalWidget == true) {
+                totalAll = data.total;
+            }
+
+            if (!badgeType || badgeType == 'badge') {
+                $('#stamped-badge-2', obj).remove();
+            }
+
+            if (isHidePowered) {
+                $('.stamped-badge-powered', obj).remove();
+            }
+
+            else if (badgeType == 'minimal') {
+                $('#stamped-badge-3', obj).remove();
+
+                var starHtml = "";
+
+                var totalRating = data.ratingAll;
+
+                while (totalRating >= 1) {
+                    starHtml += '<i class="stamped-fa stamped-fa-star"></i>';
+                    totalRating--;
+                }
+
+                while (totalRating > 0) {
+                    if (totalRating >= 0.5 && totalRating < 1) {
+                        starHtml += '<i class="stamped-fa stamped-fa-star-half-o"></i>';
+                    } else {
+                        starHtml += '<i class="stamped-fa stamped-fa-star-o"></i>';
+                    }
+                    totalRating--;
+                }
+
+                var eleRating = $('<div class="stamped-reviews-rating stamped-style-color-star"> ' + starHtml + '</div>');
+                $('#stamped-badge-2 .stamped-badge-stars', obj).append(eleRating);
+
+                var classNameWidget = '#stamped-reviews-widget[data-widget-type="site-badge"]';
+                var style = '';
+
+                if (styleColorText) {
+                    style += classNameWidget + ' ' + '.stamped-style-color-text { color:' + styleColorText + ' !important; }';
+                }
+                if (styleColorStar) {
+                    style += classNameWidget + ' ' + '.stamped-style-color-star i { color:' + styleColorStar + ' !important; }';
+                }
+                if (styleSizeStar) {
+                    style += classNameWidget + ' ' + '.stamped-style-size-star i:before { font-size:' + styleSizeStar + 'px !important; }';
+                }
+
+                if (style) {
+                    $(obj).append('<style>' + style + '</style>');
+                }
+            }
+
+            if (totalAll) {
+								var _text = numberWithCommas(totalAll);
+                $('[id="stamped-badge-total"]', obj).html(_text);
+
+                if (data.totalAll < 10) {
+                    $('[id="stamped-badge-total"]').attr('x', 80);
+                } else if (data.totalAll >= 10 && data.totalAll <= 99) {
+                    $('[id="stamped-badge-total"]').attr('x', 67);
+                } else if (data.totalAll >= 1000 && data.totalAll < 10000) {
+                    $('[id="stamped-badge-total"]').attr('x', 45);
+                } else if (data.totalAll >= 10000) {
+                    $('[id="stamped-badge-count-color"]').attr('font-size', 33);
+                    $('[id="stamped-badge-total"]').attr('x', 42);
+                }
+
+                if (data.totalAll < 200) {
+                    $('#badge-1').show();
+                } else if (data.totalAll >= 200 && data.totalAll <= 499) {
+                    $('#badge-2').show();
+                } else if (data.totalAll >= 500) {
+                    $('#badge-3').show();
+                }
+
+                $('#stamped-badge-2, #stamped-badge-3', obj).attr('data-rating', truncate(data.ratingAll, 1));
+            }
+
+            if (height) {
+                $('#stamped-badge-3', obj).height(height);
+            }
+
+            if (title) {
+                $('[id="stamped-badge-title"]', obj).text(title).css('font-size', titleSize + 'px');
+
+                if (badgeType == 'minimal') {
+                    $('[id="stamped-badge-total"]', obj).css('font-size', titleSize + 'px');
+                }
+            }
+
+            if (colorRibbon) {
+                $('[id="stamped-badge-ribbon-foreground"], [id="stamped-badge-ribbon-background"]', obj).attr('fill', colorRibbon);
+            }
+
+            if (colorOuter) {
+                $('[id="stamped-badge-outer"], [id="stamped-badge-border"]', obj).attr('fill', colorOuter);
+            }
+
+            if (colorInner) {
+                $('[id="stamped-badge-inner"], #stamped-badge-inner use[fill]', obj).attr('fill', colorInner);
+            }
+
+            if (styleColorText) {
+                $('[id="stamped-badge-count-color"]', obj).attr('fill', styleColorText);
+            }
+
+            if (styleColorStar) {
+                $('[id="stamped-badge-stars-color"]', obj).attr('fill', styleColorStar);
+            }
+        }
+
+        function truncate(num, places) {
+            return Math.trunc(num * Math.pow(10, places)) / Math.pow(10, places);
+        }
+
+				function numberWithCommas(x) {
+						return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				}
+
+        return {
+            init: init
+        }
+    }(window, document));</script>
+</div>

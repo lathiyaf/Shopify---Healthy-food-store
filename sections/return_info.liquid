@@ -1,0 +1,44 @@
+<section class="return-info">
+    <div class="container">
+        <div class="col-12">
+          <div class="img_div mb-4">
+            {%- assign preview_image = section.settings.image -%}
+            {%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            {% unless preview_image == blank %}
+                {% include 'image-style', image: preview_image, height: max_height %}
+            {% endunless %}
+            <img id="{{ img_id }}"
+            class="lazyautosizes lazyload js"
+            alt="{{ preview_image.alt }}"
+            data-src="{{ img_url }}"
+            data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+            data-aspectratio="{{ preview_image.aspect_ratio }}"
+            data-sizes="auto"
+            data-image  data-index="{{ forloop.index }}">
+          </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="richtext">
+                {{ section.settings.richtext }}
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Content Section",
+	"class": "section_start",
+    "settings": [
+      {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+      },
+  	  {
+          "type":"richtext",
+          "id":"richtext",
+          "label":"Text"
+      }
+	]
+  }
+{% endschema %}

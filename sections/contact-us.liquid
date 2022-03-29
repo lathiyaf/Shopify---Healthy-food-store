@@ -1,0 +1,159 @@
+{% if section.settings.enable_section %}
+<section class="contact-us">
+    <div class="banner-div m-auto">
+        {% if section.settings.image_banner != blank %}
+            <img class="banner-img d-xl-block d-lg-block d-md-block d-sm-none d-none" src="{{section.settings.image_banner | img_url : 'master' }}" alt="Banner image">
+        {% endif %}
+        {% if section.settings.image_banner1 != blank %}
+            <img class="banner-img d-xl-none d-lg-none d-md-none d-sm-block d-block" src="{{section.settings.image_banner1 | img_url : 'original' }}" alt="Banner image">
+        {% endif %}
+    <div class="container">
+        {% if section.settings.title != blank %}
+            <div class="row">
+                <div class="col-12 text-center pb-3">
+                    <h1 class="title mb-3">{{ section.settings.title }}</h1>
+                </div>
+            </div>
+        {% endif %}
+        {% comment %}
+        <div class="row mb-4">
+            <div class="col-10 content-div text-center m-auto ">
+                <p>Please make sure to check our FAQs and see if your question has already been answered before sending us a message.</p>
+                <p>For any questions regarding our products or for assistance with your order, please email <a href="{{ shop.url }}">info@blendvit.com</a> and you should get a response within 1 business day. If you are emailing about your order, please make sure to include the order number or the email address used at checkout in your message. Thank you!</p>
+            </div>
+        </div>
+        {% endcomment %}
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-5 order-lg-1 order-2  msp-order contact-form">
+                <div class="mb-5">
+                    {% if section.settings.detail_title != blank %}
+                        <h5 class="text-uppercase font-weight-bold">{{ section.settings.detail_title }}</h5>
+                    {% endif %}
+                    {% if section.settings.detail_subtitle != blank %}
+                        <p class="mb-0">{{ section.settings.detail_subtitle }}</p>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    {% if section.settings.sidebar_title != blank %}
+                        <h5 class="text-uppercase font-weight-bold">{{ section.settings.sidebar_title }}</h5>
+                    {% endif %}
+                    {% if section.settings.sidebar_address != blank %}
+                        <span class="d-flex align-items-center mb-2">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <p class="pl-2 m-0">{{ section.settings.sidebar_address }}</p>
+                        </span>
+                    {% endif %}
+                    {% if section.settings.sidebar_contactno != blank %}
+                        <span class="d-flex align-items-center mb-2">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <p class="pl-2 m-0">{{ section.settings.sidebar_contactno }}</p>
+                        </span>
+                    {% endif %}
+                    {% if section.settings.sidebar_email != blank %}
+                        <span class="d-flex align-items-center mb-2">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <p class="pl-2 m-0">{{ section.settings.sidebar_email }}</p>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-7 order-lg-2 order-1 msp-order acc">
+                {% form 'customer', id: 'contact-form' %}
+                    <div class="form-group input-form mb-0">
+                        <div class="input-form">
+                            <input type="text" class="form-control" name="contact[name]" id="exampleFormControlInput1" placeholder="Name">
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12 col-lg-6 mb-3 mb-lg-0 form-group input-form">
+                                <input type="email" name="contact[email]" class="form-control" id="inputEmail4" placeholder="Email">
+                            </div>
+                            <div class="col-12 col-lg-6 input-form">
+                                <input type="text" name="contact[contact-no]" class="form-control" id="contact-no" placeholder="Phone Number">
+                            </div>
+                        </div>
+                        <div class="contact-form input-form">
+                            <textarea class="form-control" name="contact[Message]" placeholder="Message" id="exampleFormControlTextarea1" rows="4"></textarea>
+                        </div>
+                        <div class="input-form mb-0">
+                            <button type="Submit" class="btn_red mr-3">Send</button>
+                        </div>
+                    </div>
+                {% endform %}
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+{% endif %}
+{% schema %}
+    {
+      "name": "Contact us",
+      "settings": [
+        {
+            "type": "checkbox",
+            "id": "enable_section",
+            "label": "Enable Section?"
+        },
+        {
+            "type":"image_picker",
+            "id":"image_banner",
+            "label":"Banner Image"
+        },
+        {
+            "type":"image_picker",
+            "id":"image_banner1",
+            "label":"Banner Image For Mobile"
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "SHOP OUR INSTAGRAM"
+        },
+        {
+            "type": "header",
+            "content": "Sidebar"
+        },
+        {
+            "type": "text",
+            "id": "sidebar_title",
+            "label": "Title",
+            "default": "VISIT OUR CLUB"
+        },
+        {
+            "type": "textarea",
+            "id": "sidebar_address",
+            "label": "Address",
+            "default": "100 Biscayne Blvd, Florida 33148"
+        },
+        {
+            "type": "textarea",
+            "id": "sidebar_contactno",
+            "label": "Contact No.",
+            "default": "(305) 555-4446"
+        },
+        {
+            "type": "textarea",
+            "id": "sidebar_email",
+            "label": "Email",
+            "default": "spam@unitedtheme.com"
+        },
+        {
+            "type": "header",
+            "content": "Get in Touch"
+        },
+        {
+            "type": "text",
+            "id": "detail_title",
+            "label": "Title",
+            "default": "GET IN TOUCH"
+        },
+        {
+            "type": "textarea",
+            "id": "detail_subtitle",
+            "label": "Content",
+            "default": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut."
+        }
+      ]
+    }
+  {% endschema %}

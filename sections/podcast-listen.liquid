@@ -1,0 +1,83 @@
+<section class="prodcast-listen">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="img_div">
+                    {%- assign preview_image = section.settings.img_sec -%}
+                    {%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                    {% unless preview_image == blank %}
+                        {% include 'image-style', image: preview_image, height: max_height %}
+                    {% endunless %}
+                    <img id="{{ img_id }}"
+                    class="lazyautosizes lazyload js glass_img aos-init"
+                    alt="{{ preview_image.alt }}"
+                    data-src="{{ img_url }}"
+                    data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                    data-aspectratio="{{ preview_image.aspect_ratio }}"
+                    data-sizes="auto"
+                    data-image  data-index="{{ forloop.index }}" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="400" data-aos-offset="300" >
+                </div>
+            </div>
+            <div class="col-lg-8">
+                {% if section.settings.title_txt != blank %}
+                    <h3 class="">{{ section.settings.title_txt }}</h3>
+                {% endif %}
+                {% if section.settings.artist_title != blank %}
+                    <p>{{ section.settings.artist_title }}</p>
+                {% endif %}
+                {% if section.settings.content_txt != blank %}
+                <div class="richtxt">
+                    {{ section.settings.content_txt }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+{
+    "name": "Podcast Listen",
+    "settings":[
+        {
+            "type": "image_picker",
+            "id": "img_sec",
+            "label": "Image"
+        },
+        {
+            "type": "textarea",
+            "id": "title_txt",
+            "label": "Title"
+        },
+        {
+            "type": "text",
+            "id": "artist_title",
+            "label": "Artist Name"
+        },
+        {
+            "type": "richtext",
+            "id": "content_txt",
+            "label": "Discription"
+        },
+        {
+            "type": "text",
+            "id": "btn_txt_1",
+            "label": "Button 1 Text"
+        },
+        {
+            "type": "url",
+            "id": "btn_1_url",
+            "label": "Button 1 Url"
+        },
+        {
+            "type": "text",
+            "id": "btn_txt_2",
+            "label": "Button 2 Text"
+        },
+        {
+            "type": "url",
+            "id": "btn_2_url",
+            "label": "Button 2 Url"
+        }
+    ]
+}
+{% endschema %}

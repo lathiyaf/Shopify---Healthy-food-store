@@ -1,0 +1,71 @@
+<section class="related-block position-relative">
+    <div class="up_light_animated_wave"></div>
+    {% if section.settings.left_image != blank %}
+    <div class="left_img position-absolute animation_img">
+        <img class="lazyload" data-src="{{ section.settings.left_image | img_url: '200x' }}" alt="Animation Image" data-aos="fade-right" data-aos-duration="2000" class="aos-init aos-animate">
+    </div>
+    {% endif %}
+    <div class="related-block-inner py-5">
+        {% if section.settings.title_txt != blank %}
+        <div class="title_div mb-5 text-center">
+            <h3>{{ section.settings.title_txt }}</h3>
+        </div>
+        {% endif %}
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-lg-0 mb-5">
+                    {% if section.settings.left_img != blank %}
+                    <div class="img_div">
+                        <img class="lazyload" data-src="{{ section.settings.left_img | img_url :'700x' }}" alt="">
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-lg-6">
+                    {% if section.settings.richtext != blank %}
+                    <div class="content_text bullet_text">
+                        {{ section.settings.richtext }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if section.settings.right_image != blank %}
+    <div class="right_img position-absolute animation_img">
+        <img class="lazyload" data-src="{{ section.settings.right_image | img_url: '200x' }}" alt="Animation Image" data-aos="fade-left" data-aos-duration="2000" class="aos-init aos-animate">
+    </div>
+    {% endif %}
+    <div class="down_light_animated_wave"></div>
+</section>
+{% schema %}
+{
+    "name": "Related Block",
+    "settings":[
+        {
+            "type": "textarea",
+            "id": "title_txt",
+            "label": "Title"
+        },
+        {
+            "type": "image_picker",
+            "id": "left_img",
+            "label": "Image"
+        },
+        {
+            "type": "richtext",
+            "id": "richtext",
+            "label": "Text"
+        },
+        {
+            "type": "image_picker",
+            "id": "left_image",
+            "label": "Left Animation Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "right_image",
+            "label": "Right Animation Image"
+        }
+    ]
+}
+{% endschema %}

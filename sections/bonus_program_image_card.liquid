@@ -1,0 +1,88 @@
+<section class="bonus_program_image_card">
+    <div class="container">
+        <div class="title_div text-center mb-5">
+            {% if section.settings.title != blank %}
+                <h3>{{ section.settings.title }}</h3>
+            {% endif %}
+        </div>
+        {% if section.settings.richtext != blank %}
+        <div class="richtext text-center">
+            {{ section.settings.richtext }}
+        </div>
+        {% endif %}
+        <div class="row features_mobile_slide">
+            {% for block in section.blocks %}
+                <div class="col-md-6 main_div">
+                    <div class="lg-bg-color">
+                        <div class="row align-items-center m-0 ">
+                            {% if block.settings.image != blank %}
+                            <div class="col-md-3">
+                                <div class="card_img_class">
+                                    <img src="{{ block.settings.image | img_url:'200x200' }}" />
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="col-md-9">
+                                {% if block.settings.card_title != blank %}
+                                <div class="card_info_class mt-3 mt-md-0">
+                                <h5>{{ block.settings.card_title }}</h5>
+                                </div>
+                                {% endif %}
+                                {% if block.settings.card_info != blank %}
+                                <div class="p_text">
+                                    {{ block.settings.card_info }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Bonus program card",
+	"class": "section_start",
+	"settings": [
+      {
+        "type":"header",
+        "content":"Top info"
+      },
+      {
+        "type":"text",
+        "id":"title",
+        "label":"Title"
+      },
+	  {
+        "type":"richtext",
+        "id":"richtext",
+        "label":"text"
+      }
+    ],
+	"blocks": [
+	  {
+          "type":"card",
+          "name":"Card",
+          "settings": [
+			  {
+                  "type":"image_picker",
+                  "id":"image",
+                  "label":"Card image"
+              },
+			  {
+                  "type":"text",
+                  "id":"card_title",
+                  "label":"Card title"
+              },
+			  {
+                  "type":"richtext",
+                  "id":"card_info",
+                  "label":"Card text info"
+              }
+           ]
+      }
+	]
+  }
+{% endschema %}

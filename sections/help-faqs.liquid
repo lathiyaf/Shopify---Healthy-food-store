@@ -1,0 +1,174 @@
+<section class="conditions-faqs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="left_menu_nav">
+                    <ul class="p-0">
+                        <li class="nav_active"><a href="#nav_id_1">Share Plum</a></li>
+                        <li><a href="#nav_id_2">Shipping</a></li>
+                        <li><a href="#nav_id_3">Payment</a></li>
+                        <li><a href="#nav_id_4">Frequent customer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="right_content">
+                    <div class="richtext_section accordian_section section_start" id="nav_id_1">
+                        <h3 class="orange-text">Share Plum</h3>
+                        <div class="accordion" id="accordion-share">
+                            {% for block in section.blocks %}
+                                {%- case block.type -%}
+                                    {% when 'shareplum' %}
+                                    <div class="card">
+                                        <div class="card-header" id="heading--{{ forloop.index }}">
+                                            <button class="btn btn-link display-3" data-toggle="collapse" data-target="#collapse--{{ forloop.index }}"><i class="fa fa-plus"></i>{{ block.settings.accordian_title }}</button>                                  
+                                        </div>
+                                        <div id="collapse--{{ forloop.index }}" class="collapse" aria-labelledby="heading--{{ forloop.index }}" data-parent="#accordion-share">
+                                            <div class="card-body">
+                                                {{ block.settings.accordian_text }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {%- endcase -%}
+                            {% endfor %}
+                        </div>
+                     </div>
+                     <div class="richtext_section accordian_section section_start" id="nav_id_2">
+                        <h3 class="orange-text">Shipping</h3>
+                        <div class="accordion" id="accordion-shipping">
+                            {% for block in section.blocks %}
+                                {%- case block.type -%}
+                                    {% when 'shipping' %}
+                                    <div class="card">
+                                        <div class="card-header" id="heading--{{ forloop.index }}">
+                                            <button class="btn btn-link display-3" data-toggle="collapse" data-target="#collapse--{{ forloop.index }}"><i class="fa fa-plus"></i>{{ block.settings.accordian_title }}</button>                                  
+                                        </div>
+                                        <div id="collapse--{{ forloop.index }}" class="collapse" aria-labelledby="heading--{{ forloop.index }}" data-parent="#accordion-shipping">
+                                            <div class="card-body">
+                                                {{ block.settings.accordian_text }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {%- endcase -%}
+                            {% endfor %}
+                        </div>
+                     </div>
+                     <div class="richtext_section accordian_section section_start" id="nav_id_3">
+                        <h3 class="orange-text">Payment</h3>
+                        <div class="accordion" id="accordion-payment">
+                            {% for block in section.blocks %}
+                                {%- case block.type -%}
+                                    {% when 'payment' %}
+                                    <div class="card">
+                                        <div class="card-header" id="heading--{{ forloop.index }}">
+                                            <button class="btn btn-link display-3" data-toggle="collapse" data-target="#collapse--{{ forloop.index }}"><i class="fa fa-plus"></i>{{ block.settings.accordian_title }}</button>                                  
+                                        </div>
+                                        <div id="collapse--{{ forloop.index }}" class="collapse" aria-labelledby="heading--{{ forloop.index }}" data-parent="#accordion-payment">
+                                            <div class="card-body">
+                                                {{ block.settings.accordian_text }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {%- endcase -%}
+                            {% endfor %}
+                        </div>
+                     </div>
+                     <div class="richtext_section accordian_section section_start" id="nav_id_4">
+                        <h3 class="orange-text">Frequent customer questions</h3>
+                        <div class="accordion" id="accordion-customer">
+                            {% for block in section.blocks %}
+                                {%- case block.type -%}
+                                    {% when 'frequentcustomer' %}
+                                    <div class="card">
+                                        <div class="card-header" id="heading--{{ forloop.index }}">
+                                            <button class="btn btn-link display-3" data-toggle="collapse" data-target="#collapse--{{ forloop.index }}"><i class="fa fa-plus"></i>{{ block.settings.accordian_title }}</button>                                  
+                                        </div>
+                                        <div id="collapse--{{ forloop.index }}" class="collapse" aria-labelledby="heading--{{ forloop.index }}" data-parent="#accordion-customer">
+                                            <div class="card-body">
+                                                {{ block.settings.accordian_text }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {%- endcase -%}
+                            {% endfor %}
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+{
+  "name": {
+    "en": "FAQS Content"
+  },
+	"class": "section_start",
+	"blocks":[
+     {
+       "type": "shareplum",
+       "name": "Share plum",
+       "settings": [
+		 {
+           "type": "text",
+           "id": "accordian_title",
+           "label": "Accordian Title"
+         },
+		 {
+           "type": "richtext",
+           "id": "accordian_text",
+           "label": "Accordian text info"
+         }
+       ]
+     },
+	 {
+       "type": "shipping",
+       "name": "Shipping",
+       "settings": [
+		 {
+           "type": "text",
+           "id": "accordian_title",
+           "label": "Accordian Title"
+         },
+		 {
+           "type": "richtext",
+           "id": "accordian_text",
+           "label": "Accordian text info"
+         }
+       ]
+     },
+	 {
+       "type": "payment",
+       "name": "Payment",
+       "settings": [
+		 {
+           "type": "text",
+           "id": "accordian_title",
+           "label": "Accordian Title"
+         },
+		 {
+           "type": "richtext",
+           "id": "accordian_text",
+           "label": "Accordian text info"
+         }
+       ]
+     },
+	 {
+       "type": "frequentcustomer",
+       "name": "Frequent customer",
+       "settings": [
+		 {
+           "type": "text",
+           "id": "accordian_title",
+           "label": "Accordian Title"
+         },
+		 {
+           "type": "richtext",
+           "id": "accordian_text",
+           "label": "Accordian text info"
+         }
+       ]
+     }
+   ]
+}
+{% endschema %}

@@ -1,0 +1,139 @@
+<section class="conditions-faqs">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="left_menu_nav">
+                    <ul class="p-0">
+                        {% for block in section.blocks %}
+                            {% if block.settings.title != blank %}
+                                <li class="{% if forloop.first %}nav_active{% endif %}">
+                                    <a href="#nav_id_{{forloop.index}}">{{ block.settings.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        <li><a href="#nav_id_6">Bonus program</a></li>
+                        <li><a href="#nav_id_7">Affiliate program</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="right_content">
+                    {% for block in section.blocks %}
+                        {%- case block.type -%}
+                            {% when 'richtext' %}
+                            <div class="richtext_section " id="nav_id_{{forloop.index}}">
+                                {% if block.settings.title != blank %}
+                                <div class="section_header">
+                                    <h3 class="orange-text">{{ block.settings.title }}</h3>
+                                </div>
+                                {% endif %}
+                                {% if block.settings.text_info != blank %}
+                                <div class="richtext">
+                                    {{ block.settings.text_info }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        {%- endcase -%}
+                    {% endfor %}
+                    <div class="richtext_section accordian_section section_start" id="nav_id_6">
+                        <h3 class="orange-text">Bonus program</h3>
+                        <div class="accordion" id="accordion-bonus">
+                            {% for block in section.blocks %}
+                                {%- case block.type -%}
+                                    {% when 'bonus_program' %}
+                                    <div class="card">
+                                        <div class="card-header" id="heading--{{ forloop.index }}">
+                                            <button class="btn btn-link display-3" data-toggle="collapse" data-target="#collapse--{{ forloop.index }}"><i class="fa fa-plus"></i>{{ block.settings.accordian_title }}</button>                                  
+                                        </div>
+                                        <div id="collapse--{{ forloop.index }}" class="collapse" aria-labelledby="heading--{{ forloop.index }}" data-parent="#accordion-bonus">
+                                            <div class="card-body">
+                                                {{ block.settings.accordian_text }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {%- endcase -%}
+                            {% endfor %}
+                        </div>
+                     </div>
+                     <div class="richtext_section accordian_section section_start" id="nav_id_7">
+                        <h3 class="orange-text">Affilite program</h3>
+                        <div class="accordion" id="accordion-affilite">
+                            {% for block in section.blocks %}
+                                {%- case block.type -%}
+                                    {% when 'affiilite_program' %}
+                                    <div class="card">
+                                        <div class="card-header" id="heading--{{ forloop.index }}">
+                                            <button class="btn btn-link display-3" data-toggle="collapse" data-target="#collapse--{{ forloop.index }}"><i class="fa fa-plus"></i>{{ block.settings.accordian_title }}</button>                                  
+                                        </div>
+                                        <div id="collapse--{{ forloop.index }}" class="collapse" aria-labelledby="heading--{{ forloop.index }}" data-parent="#accordion-affilite">
+                                            <div class="card-body">
+                                                {{ block.settings.accordian_text }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {%- endcase -%}
+                            {% endfor %}
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+{
+    "name": {
+        "en": "FAQS Content"
+    },
+	"blocks":[
+     {
+       "type": "richtext",
+       "name": "Title with text",
+       "settings": [
+		 {
+           "type": "text",
+           "id": "title",
+           "label": "Title"
+         },
+		 {
+           "type": "richtext",
+           "id": "text_info",
+           "label": "Text"
+         }
+       ]
+     },
+     {
+       "type": "bonus_program",
+       "name": "Bonus program",
+       "settings": [
+		 {
+           "type": "text",
+           "id": "accordian_title",
+           "label": "Accordian Title"
+         },
+		 {
+           "type": "richtext",
+           "id": "accordian_text",
+           "label": "Accordian text info"
+         }
+       ]
+     },
+	 {
+       "type": "affiilite_program",
+       "name": "Affiilite program",
+       "settings": [
+		 {
+           "type": "text",
+           "id": "accordian_title",
+           "label": "Accordian Title"
+         },
+		 {
+           "type": "richtext",
+           "id": "accordian_text",
+           "label": "Accordian text info"
+         }
+       ]
+     }
+   ]
+}
+{% endschema %}

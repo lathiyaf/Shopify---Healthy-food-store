@@ -1,0 +1,172 @@
+<section class="imprint-card">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-imprint">
+                    <div class="title_card_div">
+                        <div class="icon_div">
+                            {% include 'globe' %}
+                        </div>
+                        {% if section.settings.first_card_title != blank %}
+                            <h4 class="mb-0">{{ section.settings.first_card_title }}</h4>
+                        {% endif %}
+                    </div>
+                    <div class="content_div">
+                        <div class="row m-0">
+                            <div class="col-12 pl-0">
+                                <h5 class="">Richstem Ecom GmbH</h5>
+                            </div>
+                            {% if section.settings.first_card_info_text != blank %}
+                            <div class="col-md-6 pl-0">
+                                {{ section.settings.first_card_info_text }}
+                            </div>
+                            {% endif %}
+                            {% if section.settings.first_card_info_text_2 != blank %}
+                            <div class="col-md-6 pl-lg-3 pl-0">
+                                {{ section.settings.first_card_info_text_2 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card_main_row d-flex">
+                <div class="card-imprint">
+                    <div class="title_card_div">
+                        <div class="icon_div">
+                            {% include 'location' %}
+                        </div>
+                        {% if section.settings.second_card_title != blank %}
+                            <h4 class="mb-0">{{ section.settings.second_card_title }}</h4>
+                        {% endif %}
+                    </div>
+                    <div class="content_div">
+                        <div class="row m-0">
+                            {% if section.settings.second_card_info_title != blank %}
+                                <h5 class="">{{ section.settings.second_card_info_title }}</h5>
+                            {% endif %}
+                            {% if section.settings.second_card_info_text != blank %}
+                            <div class="col-12 p-0">
+                                {{ section.settings.second_card_info_text }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-imprint">
+                    <div class="title_card_div">
+                        <div class="icon_div">
+                            {% include 'bank' %}
+                        </div>
+                        {% if section.settings.third_card_title != blank %}
+                            <h4 class="mb-0">{{ section.settings.third_card_title }}</h4>
+                        {% endif %}
+                    </div>
+                    <div class="content_div">
+                        <div class="row m-0">
+                            {% if section.settings.third_card_info_title != blank %}
+                                <h5 class="">{{ section.settings.third_card_info_title }}</h5>
+                            {% endif %}
+                            {% if section.settings.third_card_info_text != blank %}
+                            <div class="col-12 p-0">
+                                {{ section.settings.third_card_info_text }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .card-imprint{
+        background:{{ section.settings.card_color }};
+    }
+</style>
+{% schema %}
+  {
+    "name": "Info Card",
+    "settings": [
+	  {
+          "type":"color",
+          "id":"card_color",
+          "label":"Card background color"
+      },
+  	  {
+          "type":"header",
+          "content":"First card"
+      },
+	  {
+          "type":"text",
+          "id":"first_card_title",
+          "label":"First card title"
+      },
+	  {
+          "type":"header",
+          "content":"First card info"
+      },
+	  {
+          "type":"text",
+          "id":"first_card_info_title",
+          "label":"First card info title"
+      },
+	  {
+          "type":"richtext",
+          "id":"first_card_info_text",
+          "label":"First card info text"
+      },
+	  {
+          "type":"richtext",
+          "id":"first_card_info_text_2",
+          "label":"First card info 2"
+      },
+	  {
+          "type":"header",
+          "content":"Second card"
+      },
+	  {
+          "type":"text",
+          "id":"second_card_title",
+          "label":"Second card title"
+      },
+	  {
+          "type":"header",
+          "content":"Second card info"
+      },
+	  {
+          "type":"text",
+          "id":"second_card_info_title",
+          "label":"Second card info title"
+      },
+	  {
+          "type":"richtext",
+          "id":"second_card_info_text",
+          "label":"Second card info text"
+      },
+	  {
+          "type":"header",
+          "content":"Third card"
+      },
+	  {
+          "type":"text",
+          "id":"third_card_title",
+          "label":"Third card title"
+      },
+	  {
+          "type":"header",
+          "content":"Third card info"
+      },
+	  {
+          "type":"text",
+          "id":"third_card_info_title",
+          "label":"Third card info title"
+      },
+	  {
+          "type":"richtext",
+          "id":"third_card_info_text",
+          "label":"Third card info text"
+      }
+	]
+  }
+{% endschema %}

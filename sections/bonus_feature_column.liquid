@@ -1,0 +1,69 @@
+<section class="bonus-feature-column">
+    <div class="container">
+        <div class="col-12 mb-5">
+            <div id="stamped-rewards-widget" data-widget-type="rewards-summary" data-label-greeting-anonymous="Hallo du," data-label-greeting-customer="Hallo {0}" data-label-greeting-description="Als Mitglied bekommst du bei jedem Einkauf GRATIS Bonuspunkte und kannst diese bei deinem nächsten Einkauf einlösen! Zusätzlich gibt es zahlreiche Möglichkeiten weitere GRATIS Bonuspunkte zu bekommen." data-label-signup="Anmelden" data-label-signin="Einloggen" data-label-redeem="Jetzt einösen" data-label-history="Bereits eingelöst"></div>
+        </div>
+        <div class="row mobile_slider_column">
+            {% for block in section.blocks %}
+            <div class="col-md-4">
+                <div class="feature_box">
+                    {% if block.settings.feature_icon != blank %}
+                        <div class="icon_div">
+                            <img src="{{ block.settings.feature_icon | img_url:'large' }}" alt="{{ block.settings.feature_icon.alt }}"/>
+                        </div>
+                    {% endif %}
+                    <div class="info_div text-center">
+                        {% if block.settings.feature_title != blank %}
+                            <h4 class="mt-4">{{ block.settings.feature_title }}</h4>
+                        {% endif %}
+                        {% if block.settings.feature_info != blank %}
+                            <div class="my-4 display-4 text-gray richtext">{{ block.settings.feature_info }}</div>
+                        {% endif %}
+                        {% if block.settings.feature_btn_link != blank %}
+                            <a class="btn-outline m-auto" href="{{ block.settings.feature_btn_link }}">{{ block.settings.feature_btn_label }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Feature column",
+	"blocks": [
+	  {
+          "type":"featurecolumn",
+          "name":"Feature column",
+          "settings": [
+			  {
+                  "type":"image_picker",
+                  "id":"feature_icon",
+                  "label":"Feature icon"
+              },
+              {
+                  "type":"text",
+                  "id":"feature_title",
+                  "label":"Feature title"
+              },
+			  {
+                  "type":"richtext",
+                  "id":"feature_info",
+                  "label":"Feature info"
+              },
+			  {
+                  "type":"text",
+                  "id":"feature_btn_label",
+                  "label":"Button label"
+              },
+			  {
+                  "type":"url",
+                  "id":"feature_btn_link",
+                  "label":"Button link"
+              }
+           ]
+      }
+	]
+  }
+{% endschema %}

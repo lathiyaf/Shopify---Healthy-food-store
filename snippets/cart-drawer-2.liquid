@@ -1,0 +1,515 @@
+<div id="mini-cart" class="hc-cartDrawer">
+    <h4>Cart</h4>
+    <span class="hc-close" aria-hidden="true">&times;</span>
+    <div class="count">
+      <span class="hc-items-count">{{cart.item_count }}</span> item(s) in your cart
+    </div>
+  
+    <form action="/cart" method="post" novalidate class="cart">
+  
+      <div class="hc-append"></div>
+  
+      <table class="hc-mini-table">
+        {% for item in cart.items %}
+        <tr class="item-details" data-id="{{ item.id }}">
+          <td class="td-image">
+            <img src="{{ item | img_url: 'x100' }}" />
+          </td>
+          <td>
+            <div class="mini_cart_title_price">
+              <div>{{ item.title }}</div>
+              <span class="item-price">{{item.price | money }}</span>
+            </div>
+            <a href class="minus-quantity">&minus;</a>
+            <input type="text" class="quantity-input" value="{{item.quantity}}">
+            <a href class="plus-quantity">&plus;</a>
+            <a class="hc-remove" href="">Remove</a>
+          </td>
+        </tr>  
+        {% endfor %}
+      </table>
+  
+      <div class="hc-buttons action buttons">
+        <div class="subtotal">
+          <strong class="float-left">Subtotal </strong>
+          <strong class="amount">{{ cart.total_price | money }}</strong>
+        </div>
+  
+        <a href="/cart" rel="nofollow" class="cart-grey-btn">View Cart</a>
+        <a class="checkout" href="/checkout" rel="nofollow">Checkout</a>
+  
+        <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
+      </div>
+  
+    </form>
+  </div>
+  
+  <div class="custom-overlay"></div>
+  
+  <style>
+    .additional-checkout-button+.additional-checkout-button, .additional-checkout-button--google-pay {
+      width: 100% !important;
+      margin-left: 0;
+    }
+  
+    form.cart {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 90vh;
+    }
+    
+    body {
+      -webkit-transition: transform 0.5s ease;
+      -moz-transition: transform 0.5s ease;
+      -o-transition: transform 0.5s ease;
+      transition: transform 0.5s ease;
+    }
+  
+    body.active_slide_cart {
+      position: static;
+      overflow: hidden !important;
+    }
+    
+    @media screen and (max-width: 480px) {
+      body.active_slide_cart {
+        position: fixed;
+        overflow: auto !important;
+      }
+    }
+  
+    #mini-cart {
+      width: 500px;
+      position: fixed;
+      top: 0;
+      z-index: 999;
+      background: #f7f7f7;
+      color: #000;
+      display: block;
+      padding: 15px;
+      height: 100vh;
+      right: -500px;
+      bottom: 0;
+    }
+    
+    body.active_slide_cart {
+      -ms-transform: translate(-500px, 0px); /* IE 9 */
+      -webkit-transform: translate(-500px, 0px); /* Safari */
+      transform: translate(-500px, 0px);
+      -webkit-transition: transform 0.5s ease;
+      -moz-transition: transform 0.5s ease;
+      -o-transition: transform 0.5s ease;
+      transition: transform 0.5s ease;
+    }
+  
+    #mini-cart .count, #mini-cart .subtotal, #mini-cart .buttons {
+      padding: 10px;
+    }
+  
+    #mini-cart .subtotal {
+      text-align: right;
+      padding-right: 5px;
+    }
+    #mini-cart .subtotal .amount {
+      display: inline-block;
+      padding: 0 10px;
+    }
+    #mini-cart table tr, #mini-cart .count {
+      border-bottom: 1px solid #ccc;
+    }
+    #mini-cart table td {
+      border: none;
+      padding: 5px;
+      vertical-align: top;
+    }
+  
+    #mini-cart a {
+      padding: 5px;
+    }
+  
+    .hc-mini-table {
+      overflow-y: auto;
+      max-height: 500px;
+      display: block;
+    }
+  
+    @media screen and (max-width: 480px) {
+      .hc-mini-table {
+        max-height: 300px;
+      }
+    }
+  
+    #mini-cart .action.buttons a {
+      padding: 16px;
+      width: 100%;
+      text-align: center;
+      display: block;
+      font-size: 14px;
+      margin-bottom: 10px;
+      background: #666;
+    }
+    
+    #mini-cart .action.buttons a.checkout {
+      background: #000;
+    }
+    
+    .cart-grey-btn {
+      background: #666;
+      color: #fff;
+    }
+  
+    #mini-cart a.checkout {
+      float: right;
+      background: #000;
+      color: #fff;
+    }
+  
+    #mini-cart .item-price {
+      float: right;
+      margin-right: 24px;
+      margin-top: 18px;
+      margin-left: 10px;
+    }
+  
+    .custom-overlay {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+    }
+  
+    .action.buttons {
+      overflow: hidden;
+      position: absolute;
+      width: 95%;
+      bottom: 0;
+      text-transform: uppercase;
+    }
+  
+    #mini-cart .action.buttons a:hover {
+      opacity: .9;
+      color: #fff;
+    }
+  
+    .float-left {
+      float: left;
+    }
+  
+    .hc-close {
+      float: right;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 21px;
+      text-align: center;
+    }
+  
+    .td-image{
+      width: 100px;
+    }
+  
+    #mini-cart a {
+      padding: 10px 15px;
+      background-color: #ffffff;
+      border: 1px solid #e8e9eb;
+    }
+  
+    input.quantity-input {
+      width: 41px;
+      display: inline-block;
+      text-align: center;
+      padding: 10px 0px;
+    }
+  
+    #mini-cart a.hc-remove {
+      float: right;
+      vertical-align: top;
+      display: inline-block;
+      padding: 0px 5px;
+      margin-top: 7.5px;
+    }
+  
+    .mini_cart_title_price {
+      display: block;
+      width: 100%;
+      clear: both;
+      position: relative;
+      margin-bottom: 10px;
+    }
+  
+    .mini_cart_title_price div {
+      display: inline-block;
+    }
+  
+    td.td-image img {
+      max-height: 100px;
+      height: 100%;
+      width: initial;
+    }
+  
+    #mini-cart .hc-buttons.action.buttons {
+      z-index: 999999;
+      position: relative;
+    }
+  
+    @media screen and (max-width: 767px) {
+      #mini-cart {
+        width: 100%;
+      }
+  
+      #mini-cart .item-price,
+      #mini-cart a.hc-remove {
+        float: none;
+      }
+      
+      #mini-cart .action.buttons a {
+        padding: 10px;
+      }
+      
+      form.cart {
+        height: 87vh;
+      }
+    }
+  
+    div#mini-cart.mini-cart-popup {
+      display: none;
+    }
+  
+    .mini_cart_trigger  {
+      padding: 11px;
+    }
+  
+    div#mini-cart.mini-cart-popup {
+      right: 0;
+      height: initial;
+      top: 40px;
+      width: 360px;
+      bottom: initial;
+      left: initial;
+      position: absolute;
+    }
+  
+    div#mini-cart.mini-cart-popup .hc-append {
+      max-height: initial;
+      overflow-x: hidden;
+    }
+  
+    div#mini-cart.mini-cart-popup td.td-image img {
+      max-height: initial;
+      height: initial;
+      width: 100%;
+      vertical-align: middle;
+      display: inline-block;
+    }
+  
+    div#mini-cart.mini-cart-popup .mini_cart_title_price {
+      font-size: 14px;
+    }
+  
+    .mini_cart_trigger:hover + div#mini-cart.mini-cart-popup,
+    div#mini-cart.mini-cart-popup:hover {
+      display: block !important; /* Overwriting js script */
+    }
+  
+    div#mini-cart.mini-cart-popup table td {
+      vertical-align: middle;
+    }
+  
+    @media screen and (max-width: 767px) {
+      div#mini-cart.mini-cart-popup {
+        width: 300px;
+      }
+  
+      div#mini-cart.mini-cart-popup .item-price,
+      div#mini-cart.mini-cart-popup a.hc-remove {
+        float: right;
+        clear: both;
+        display: block;
+      }
+    }
+  
+  </style>
+  
+  <script>
+    $(function() {
+      $('.slide_out_cart_trigger, .custom-overlay').click(function(event) {
+        event.preventDefault();
+        $(".custom-overlay").toggle();
+        jQuery('body').toggleClass('active_slide_cart');
+      });
+  
+      $('.hc-close').click(function() {
+        $(".custom-overlay").hide();
+        jQuery('body').removeClass('active_slide_cart');
+      });
+  
+      $(document).on('click', '.plus-quantity',function(e){
+        e.preventDefault();
+        var $input = $(this).siblings('.quantity-input');
+        var newValue = parseInt($input.val()) + 1;
+        $input.val(newValue).trigger('change');
+        return false;
+      });
+  
+      $(document).on('click', '.minus-quantity',function(e){
+        e.preventDefault();
+        var $input = $(this).siblings('.quantity-input');
+        var newValue = parseInt($input.val()) - 1;
+        $input.val(newValue).trigger('change');
+        return false;
+      });
+  
+      $(document).on('click', '.hc-remove',function(e){
+        e.preventDefault();
+        var $input = $(this).siblings('.quantity-input');
+        $input.val('0').trigger('change');
+        return false;
+      });
+  
+      $(document).on('change', '.quantity-input', function() {
+  
+        var $update = {};
+        $update[$(this).closest('.item-details').data('id')] = parseInt($(this).val());
+  
+        $.ajax({
+          method: 'POST',
+          datatype: 'json',
+          data: { updates: $update },
+          url: '/cart/update.js',
+          success: function(){
+            // console.log('success');
+          },
+          error: function(message){
+            if (message['status'] == 200) {
+              $.getJSON('/cart.js', function(cart) {
+                var size = cart.item_count;
+                $('.hc-items-count').text(size);
+                $('.hc-mini-table').remove();
+  
+                $('.amount').text(Shopify.formatMoney(cart.total_price, Shopify.moneyFormat));
+                $('.hc-append').append('<table class="hc-mini-table">');           
+  
+                $(cart.items).each(function(index, item) {
+                  $('.hc-mini-table').append('<tr class="item-details" data-id="'+item.id+'"><td class="td-image"><img src="' + item.image + '" /></td><td><div class="mini_cart_title_price"><div>' + item.product_title + ' ' + item.variant_title + '</div><span class="item-price">' + Shopify.formatMoney(item.price, theme.moneyFormat) + '</span></div><a href class="minus-quantity">&minus;</a><input type="text" class="quantity-input" value="' + item.quantity + '"><a href class="plus-quantity">&plus;</a><a class="hc-remove" href="">Remove</a></td></tr>');
+                });
+  
+                $('.hc-append').append('</table>');
+                $('#CartCount > span').text(size);
+              });
+            }
+          }
+        });
+        return false;
+      });
+    });   
+  
+
+//******Cart Updating Stuff *****
+
+function ajaxSubmitCart() {
+  $cart = $("#cart");
+  $.ajax({
+    url: '/cart.js',
+    dataType: 'json',
+    type: 'post',
+    data: $cart.serialize(),
+    success: function (data) {
+      refreshCart(data);
+    }
+  });
+}
+ function refreshCart(cart) {
+   
+    $cartBtn = $(".cart-drawer-count");
+    if ($cartBtn && $cartBtn.size()) {
+      var value = $cartBtn.text() || '0';
+      var cart_items_html = "";
+      var $cart = $("#cart ul");
+      
+      $cartBtn.text(value.replace(/[0-9]+/,cart.item_count));
+      $cart.find('li:not(:first)').remove();
+
+      if (cart.item_count == 0) {
+        $cart.append('<li class="empty_cart">{{ 'layout.general.empty_cart' | t }}</li>');
+      } else {
+        $.each(cart.items, function(index, item) {
+          if(item.formatted_recurring_desc === undefined)
+            item.formatted_recurring_desc = "";
+          cart_items_html += '<li class="cart_item clearfix">';
+            if (item.image) {
+              cart_items_html += '<div class="cart_image">' +
+                  '<img src="' + item.image.replace(/(\.[^.]*)$/, "_medium$1").replace('http:', '') + '"  />' +
+                '</div>';
+            }
+            '<div class="cart_item__title">' +
+              '<div class="item-deet-wrap">' +
+              '<div class="item_title">' + item.title + item.formatted_recurring_desc +'</div>';
+          cart_items_html += '<div class="item_title">' + item.title + item.formatted_recurring_desc +'</div>' +
+              '<div class="qty-wrapper">' +
+                  '<input type="button" value="-" class="qtyminus" field="quantity" />' +
+                  '<input type="text" id="Quantity" name="quantity" value="'+ cart.item_count +'" class="product-form__input qty" />'+
+                  '<input type="button" value="+" class="qtyplus" field="quantity" />'+
+                  '</div>'+
+            	  '<div class="right price">'+
+                  '<span class="money">' + Shopify.formatMoney(item.price, $cart.data('money-format')) + '</span>'+
+                '</div>'+
+          '</li>';
+        });
+
+        cart_items_html += '<li class="mm-label">' +
+            '<p class="mm-counter">' + Shopify.formatMoney(cart.total_price, $cart.data('money-format')) + '</p>' +
+            '<a href="/cart">' +
+              '<strong>{{ 'cart.general.subtotal' | t }}</strong>' +
+            '</a>' +
+          '</li>' +
+          '<li class="mm-subtitle clearfix">';
+
+          
+
+          cart_items_html += '<div class="center-me">' +
+          	'<input type="submit" name="checkout" class="action_button btn" value={{ 'cart.general.checkout' | t | json }} />' +
+            '</div>';
+          '</li>';
+
+        $cart.append(cart_items_html);
+        $cart.find('li.cart_item:last').addClass('last_cart_item');
+        
+      }
+      
+    }
+   		
+  }
+
+$(document).on("change", "#cart input.quantity", function() { 
+  ajaxSubmitCart();
+});
+
+$(document).on("click", ".qtyminus", function() { 
+  var quantity = parseInt($(this).next("input").val()); 
+  quantity -= 1;
+  $(this).next("input").attr("value", quantity);
+  if (quantity == 0) {
+    $(this).closest('li.cart_item').addClass('animated fadeOutUp')
+    setTimeout(ajaxSubmitCart, 500);
+  } else {
+    ajaxSubmitCart();
+  }
+});
+$(document).on("click", ".qtyplus", function() { 
+  var quantity = parseInt($(this).prev("input").val()); 
+  quantity += 1;
+  $(this).prev("input").attr("value", quantity);
+  ajaxSubmitCart();
+});
+
+function openDrawer(){        
+	$("#cart-drawer").addClass("open");
+}
+</script>

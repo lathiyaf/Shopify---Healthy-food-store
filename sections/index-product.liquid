@@ -1,0 +1,120 @@
+<section class="index-product">
+    <div class="container">
+        <div class="title_div mb-5 text-center">
+            {% if section.settings.subtitle != blank %}
+
+              <h5>{{ section.settings.subtitle }}</h5>
+
+            {% endif %}
+
+            {% if section.settings.title != blank %}
+
+              <h3 class="mb-0">{{ section.settings.title }}</h3>
+
+            {% endif %}
+        </div>
+        <div class="prodcut_slider">
+            {% assign collection = collections[section.settings.collection] %}
+            {%- for product in collection.products -%}
+            <div class="product_box">
+                {%- assign preview_image = product.featured_image -%}
+                {%- assign img_url = preview_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                {% unless preview_image == blank %}
+                {% include 'image-style', image: preview_image, height: max_height %}
+                {% endunless %}
+                <a href="{{ product.url }}">
+                    <div class="img_div">
+                        <img id="{{ img_id }}"
+                        class="lazyautosizes lazyload js"
+                        width="314"
+                        height="314"
+                        alt="{{ preview_image.alt }}"
+                        data-src="{{ img_url }}"
+                        data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                        data-aspectratio="{{ preview_image.aspect_ratio }}"
+                        data-sizes="auto"
+                        data-image  data-index="{{ forloop.index }}">
+                    </div>
+                </a>
+                <div class="collection_product_info mt-4 text-center">
+                    <h5 class="display-1 fw-500 netto_ot cursor-pointer" title="{{ product.title }}">{{ product.title }}</h5>
+                    <a class="button-all mt-3 mx-auto" href="{{ product.url }}">{{ section.settings.btn_text }}</a>
+                </div>
+            </div>
+            {%- endfor -%}
+        </div>
+    </div>
+    {% if section.settings.item_image != blank %}
+      <div class="curve_section_item position-absolute animation-img text-right">
+        <img class="lazyload" data-src="{{ section.settings.item_image | img_url: 'large' }}" alt="{{ section.settings.item_image.alt }}" data-aos="fade-left" data-aos-offset="300" data-aos-duration="2000" />
+      </div>
+      {% endif %}
+
+      {% if section.settings.item_image_2 != blank %}
+      <div class="curve_section_item_2 position-absolute animation-img text-right">
+        <img class="lazyload" data-src="{{ section.settings.item_image_2 | img_url: 'large' }}" width="207" height="193" alt="{{ section.settings.item_image_2.alt }}" data-aos="fade-left" data-aos-offset="200" data-aos-duration="2000" />
+      </div>
+    {% endif %}
+</section>
+
+
+{% schema %}
+  {
+    "name": "Product collection",
+	"class": "section_start",
+    "settings": [	
+      {
+          "type":"header",
+          "content":"Title and subtitle"
+      },
+      {
+          "type":"text",
+          "id":"title",
+          "label":"Title"
+      },	
+      {
+          "type":"text",
+          "id":"subtitle",
+          "label":"Subtitle"
+      },
+      {
+          "type":"header",
+          "content":"product section"
+      },
+      {
+          "type":"collection",
+          "id":"collection",
+          "label":"Collection"
+      },
+      {
+        "type":"text",
+        "id":"btn_text",
+        "label":"Button Text"
+      },
+	  {
+          "type":"header",
+          "content":"Animation item"
+      },
+	  {
+		"type":"image_picker",
+		"id":"item_image",
+		"label":"Item image"
+      },
+      {
+          "type":"image_picker",
+          "id":"item_image_2",
+          "label":"Item image 2"
+      }
+	],
+	"presets": [
+      {
+        "name": {
+          "en": "Product collection"
+        },
+        "category": {
+            "en": "Home page section"
+        }
+      }
+    ]
+  }
+{% endschema %}
